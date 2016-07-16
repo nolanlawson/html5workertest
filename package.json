@@ -4,13 +4,27 @@
   "description": "Test for browser features of web workers and service workers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-local": "node bin/watch.js & zuul --no-coverage --local 9000 src/index.js",
+    "test": "browserify -t rollupify -t bubleify src/worker.js > worker-bundle.js && zuul --no-coverage src/index.js"
   },
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
   "license": "Apache-2.0",
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "function-to-string": "^0.2.0",
+    "pouchdb-promise": "5.4.5",
+    "promise-worker": "^1.0.0",
+    "scope-eval": "0.0.3"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "bubleify": "^0.5.0",
+    "mkdirp": "^0.5.1",
+    "rollupify": "^0.3.4",
+    "run-scripts": "^0.4.0",
+    "watchify": "^3.7.0",
+    "zuul": "^3.10.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nolanlawson/html5workertest.git"
