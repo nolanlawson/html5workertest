@@ -1,12 +1,22 @@
 {
   "name": "html5workertest",
   "version": "1.0.0",
-  "description": "",
+  "description": "Test for browser features of web workers and service workers",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nolanlawson/html5workertest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nolanlawson/html5workertest/issues"
+  },
+  "homepage": "https://github.com/nolanlawson/html5workertest#readme"
 }
