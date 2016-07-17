@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-local": "concurrently --kill-others \"node bin/watch.js\" \"zuul --no-coverage --local 9000 src/index.js\"",
-    "build-worker": "browserify -t babelify src/worker.js > worker-bundle.js",
+    "build-worker": "browserify -t babelify src/worker.js > worker-bundle.js && browserify -t babelify src/serviceWorker.js > service-worker-bundle.js",
     "test": "standard && node bin/pretest.js && npm run build-worker && zuul --no-coverage src/index.js"
   },
   "keywords": [],

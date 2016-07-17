@@ -33,3 +33,11 @@ self.addEventListener('message', e => {
   }
   runCustomTest(e.data)
 })
+
+self.addEventListener('activate', function(event) {
+  console.log('activate');
+  event.waitUntil((() => {
+    // activate right now
+    return self.clients.claim()
+  })())
+})
