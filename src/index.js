@@ -76,11 +76,13 @@ describe('html5workertest', function () {
     }
 
     function postResults () {
-      var opts = {};
+      var opts = {}
       if (process.env.COUCH_USERNAME) {
         opts = {
-          username: process.env.COUCH_USERNAME,
-          password: process.env.COUCH_PASSWORD
+          auth: {
+            username: process.env.COUCH_USERNAME,
+            password: process.env.COUCH_PASSWORD
+          }
         }
       }
       var db = new PouchDB(process.env.COUCH_URL, opts)
