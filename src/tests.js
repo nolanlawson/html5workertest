@@ -1,6 +1,9 @@
 import functionToString from 'function-to-string'
 
 var tests = [
+  //
+  // basic tests
+  //
   {
     name: 'IndexedDB',
     func: () => typeof indexedDB !== 'undefined'
@@ -60,6 +63,10 @@ var tests = [
   {
     name: 'navigator.sendBeacon',
     func: () => typeof navigator.sendBeacon === 'function'
+  },
+  {
+    name: 'navigator.product',
+    func: () => typeof navigator.product === 'string'
   },
   {
     name: 'importScripts',
@@ -133,6 +140,61 @@ var tests = [
     name: 'Promise',
     func: () => typeof Promise === 'function'
   },
+  {
+    name: 'BroadcastChannel',
+    func: () => typeof BroadcastChannel === 'function'
+  },
+  {
+    name: 'Cache',
+    func: () => typeof caches === 'object'
+  },
+  {
+    name: 'Channel Messaging',
+    func: () => typeof MessageChannel === 'function'
+  },
+  {
+    name: 'CustomEvent',
+    func: () => typeof CustomEvent === 'function'
+  },
+  {
+    name: 'DOMRequest',
+    func: () => typeof DOMRequest === 'function'
+  },
+  {
+    name: 'DOMCursor',
+    func: () => typeof DOMCursor === 'function'
+  },
+  {
+    name: 'FormData',
+    func: () => typeof FormData === 'function'
+  },
+  {
+    name: 'ImageData',
+    func: () => typeof ImageData === 'function'
+  },
+  {
+    name: 'Notifications',
+    func: () => typeof Notification !== 'undefined'
+  },
+  {
+    name: 'performance',
+    func: () => typeof performance !== 'undefined'
+  },
+  {
+    name: 'TextEncoder/TextDecoder',
+    func: () => typeof TextEncoder !== 'undefined' && typeof TextDecoder !== 'undefined'
+  },
+  {
+    name: 'URL',
+    func: () => typeof URL !== 'undefined'
+  },
+  {
+    name: 'WebSockets',
+    func: () => typeof WebSocket !== 'undefined'
+  },
+  //
+  // custom tests
+  //
   {
     name: 'Transferable',
     custom: () => {
