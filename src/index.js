@@ -2,11 +2,11 @@ import PromiseWorker from 'promise-worker'
 import functionToString from 'function-to-string'
 import tests from './tests'
 import Promise from 'pouchdb-promise'
+import UAParser from 'ua-parser-js'
+import PouchDB from 'pouchdb-http'
 
 var worker = new Worker('worker-bundle.js')
 var promiseWorker = new PromiseWorker(worker)
-
-var results = {}
 
 describe('html5workertest', function () {
 
@@ -63,7 +63,7 @@ describe('html5workertest', function () {
       })
     })
 
-    after(() => {
+    function displayResults () {
       var pre = document.createElement('pre')
       pre.style.position = 'absolute'
       pre.style.top = '0'
@@ -73,6 +73,28 @@ describe('html5workertest', function () {
       pre.style.padding = '40px'
       pre.innerHTML = JSON.stringify(res, null, '  ')
       document.body.appendChild(pre)
+    }
+
+    function postResults () {
+      var db = new PouchDB(process.env.COUCH_URL, {
+        username: process.env.COUCH_USERNAME,
+        password: process.env.COUCH_PASSWORD
+      })
+      var ua = new UAParser().getResult()
+      return db.put({
+        _id: new Date().toISOString(),
+        ua: ua,
+        results: res,
+        version: 1
+      })
+    }
+
+    after(() => {
+      displayResults()
+
+      if (typeof process.env.COUCH_URL !== 'undefined') {
+        return postResults()
+      }
     })
   })
 })
