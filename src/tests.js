@@ -1,4 +1,3 @@
-import { binaryStringToBlob, blobToArrayBuffer } from 'blob-util'
 import functionToString from 'function-to-string'
 
 var tests = [
@@ -123,16 +122,92 @@ var tests = [
     func: () => typeof console !== 'undefined'
   },
   {
-    name: 'Transferable to worker',
-    custom: worker => {
-
-      var func = message => {
-        return {passed: message.data.buff.byteLength === 5}
+    name: 'fetch',
+    func: () => typeof fetch === 'function'
+  },
+  {
+    name: 'XmlHTTPRequest',
+    func: () => typeof XMLHttpRequest === 'function'
+  },
+  {
+    name: 'Promise',
+    func: () => typeof Promise === 'function'
+  },
+  {
+    name: 'Transferable',
+    custom: () => {
+      var buffLengthAfterPost;
+      return {
+        preWorker: worker => {
+          var str = 'hello'
+          var buff = new ArrayBuffer(str.length)
+          var arr = new Uint8Array(buff)
+          var i = -1
+          while (++i < str.length) {
+            arr[i] = str.charCodeAt(i)
+          }
+          var insideWorkerFunc = e => {
+            var buff = e.data.buff
+            var str = '';
+            var bytes = new Uint8Array(buff);
+            var i = -1;
+            while (++i < buff.byteLength) {
+              str += String.fromCharCode(bytes[i]);
+            }
+            return {
+              buffValue: str,
+              buffLength: buff.byteLength
+            }
+          }
+          worker.postMessage({
+            buff: buff,
+            func: functionToString(insideWorkerFunc).body
+          }, [buff])
+          // byteLength should become 0 after postMessage()
+          buffLengthAfterPost = buff.byteLength
+        },
+        postWorker: e => {
+          var message = e.data.message
+          return message.buffValue == 'hello' &&
+            message.buffLength === 5 &&
+            buffLengthAfterPost === 0
+        }
       }
-
-      return binaryStringToBlob('hello world').then(blobToArrayBuffer).then(buff => {
-        worker.postMessage({buff: buff, func: functionToString(func).body}, [buff])
-      })
+    }
+  },
+  {
+    name: 'Canvas WebGL',
+    custom: () => {
+      var canvas = document.createElement('canvas')
+      if (!('transferControlToOffscreen' in canvas)) {
+        return false
+      }
+      var offscreen = canvas.transferControlToOffscreen();
+      return {
+        preWorker: worker => {
+          var insideWorkerFunc = e => {
+            // see https://hacks.mozilla.org/2016/01/webgl-off-the-main-thread/
+            try {
+              var canvas = e.data.canvas
+              var gl = canvas.getContext('webgl')
+              gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+              gl.drawArrays(gl.TRIANGLES, 0, n);
+              gl.commit();
+              return {error: false}
+            } catch (e) {
+              console.log(e)
+              return {error: true}
+            }
+          }
+          worker.postMessage({
+            canvas: offscreen,
+            func: functionToString(insideWorkerFunc).body
+          }, [offscreen])
+        },
+        postWorker: e => {
+          return !e.data.error
+        }
+      }
     }
   }
 ]

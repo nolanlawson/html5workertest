@@ -16,22 +16,32 @@ describe('html5workertest', function () {
 
     var res = {}
 
-    before(() => {
-    })
-
     function runCustomTest(test) {
-      return new Promise((resolve) => {
-        var listener = message => {
-          if (!message.custom) {
-            return
-          }
-          worker.removeEventListener('message', listener)
-          resolve(message)
+      var customTest = test.custom()
+      if (!customTest) {
+        // short circuit, feature not supported
+        res[test.name] = false
+        return
+      }
+      return new Promise((resolve, reject) => {
+        var onMessage = e => {
+          cleanup()
+          resolve(e)
         }
-        worker.addEventListener('message', listener)
-        test.custom(worker)
-      }).then(result => {
-        res[test.name] = result.passed
+        var onError = err => {
+          cleanup(err)
+          reject(err)
+        }
+        var cleanup = () => {
+          worker.removeEventListener('message', onMessage)
+          worker.removeEventListener('error', onError)
+        }
+        worker.addEventListener('message', onMessage)
+        worker.addEventListener('error', onError)
+        customTest.preWorker(worker)
+      }).then(e => {
+        var passed = customTest.postWorker(e)
+        res[test.name] = passed
       })
     }
 
@@ -60,6 +70,7 @@ describe('html5workertest', function () {
       pre.style.left = '40%'
       pre.style.background = 'rgba(0, 0, 0, 0.7)'
       pre.style.color = '#fafafa'
+      pre.style.padding = '40px'
       pre.innerHTML = JSON.stringify(res, null, '  ')
       document.body.appendChild(pre)
     })

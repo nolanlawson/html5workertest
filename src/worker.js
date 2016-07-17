@@ -18,14 +18,9 @@ register(message => {
   return runTest(message.test)
 })
 
-function runCustomTest(message) {
-  try {
-    var fun = new Function('message', message.data.func)
-    var passed = fun(message)
-    self.postMessage({custom: true, passed: passed})
-  } catch (e) {
-    self.postMessage({custom: true, passed: false})
-  }
+function runCustomTest(e) {
+  var func = new Function('e', e.data.func)
+  self.postMessage({message: func(e)})
 }
 
 self.addEventListener('message', message => {

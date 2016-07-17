@@ -1,7 +1,8 @@
 ui: mocha-bdd
 browserify:
- - transform: rollupify
- - transform: bubleify
+ - transform: babelify
+# - transform: rollupify
+# - transform: bubleify
 browsers:
   - name: chrome
     version: latest
