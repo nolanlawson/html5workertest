@@ -17,3 +17,20 @@ function runTest (func) {
 register(message => {
   return runTest(message.test)
 })
+
+function runCustomTest(message) {
+  try {
+    var fun = new Function('message', message.data.func)
+    var passed = fun(message)
+    self.postMessage({custom: true, passed: passed})
+  } catch (e) {
+    self.postMessage({custom: true, passed: false})
+  }
+}
+
+self.addEventListener('message', message => {
+  if (typeof message === 'string') {
+    return // let promise-worker handle it
+  }
+  runCustomTest(message)
+})

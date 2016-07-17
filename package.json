@@ -4,13 +4,15 @@
   "description": "Test for browser features of web workers and service workers",
   "main": "index.js",
   "scripts": {
-    "test-local": "node bin/watch.js & zuul --no-coverage --local 9000 src/index.js",
-    "test": "browserify -t rollupify -t bubleify src/worker.js > worker-bundle.js && zuul --no-coverage src/index.js"
+    "test-local": "concurrently --kill-others \"node bin/watch.js\" \"zuul --no-coverage --local 9000 src/index.js\"",
+    "build-worker": "browserify -t rollupify -t bubleify src/worker.js > worker-bundle.js",
+    "test": "standard && npm run build-worker && zuul --no-coverage src/index.js"
   },
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "blob-util": "^1.2.1",
     "function-to-string": "^0.2.0",
     "pouchdb-promise": "5.4.5",
     "promise-worker": "^1.0.0",
@@ -19,9 +21,11 @@
   "devDependencies": {
     "browserify": "^13.0.1",
     "bubleify": "^0.5.0",
+    "concurrently": "^2.2.0",
     "mkdirp": "^0.5.1",
     "rollupify": "^0.3.4",
     "run-scripts": "^0.4.0",
+    "standard": "^7.1.2",
     "watchify": "^3.7.0",
     "zuul": "^3.10.1"
   },
