@@ -38,10 +38,18 @@ describe('html5workertest', function () {
         }
         worker.addEventListener('message', onMessage)
         worker.addEventListener('error', onError)
-        customTest.preWorker(worker)
+        try {
+          customTest.preWorker(worker)
+        } catch (e) {
+          console.log(e)
+          cleanup()
+          reject(e)
+        }
       }).then(e => {
         var passed = customTest.postWorker(e)
         res[test.name] = passed
+      }, () => { // error, assume failure
+        res[test.name] = false
       })
     }
 
