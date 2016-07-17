@@ -1,3 +1,5 @@
+/* global it,describe,after,Worker, */
+
 import PromiseWorker from 'promise-worker'
 import functionToString from 'function-to-string'
 import tests from './tests'
@@ -9,14 +11,12 @@ var worker = new Worker('worker-bundle.js')
 var promiseWorker = new PromiseWorker(worker)
 
 describe('html5workertest', function () {
-
   this.timeout(30000)
 
   describe('worker', function () {
-
     var res = {}
 
-    function runCustomTest(test) {
+    function runCustomTest (test) {
       var customTest = test.custom()
       if (!customTest) {
         // short circuit, feature not supported
@@ -45,7 +45,7 @@ describe('html5workertest', function () {
       })
     }
 
-    function runBasicTest(test) {
+    function runBasicTest (test) {
       return promiseWorker.postMessage({
         test: functionToString(test.func).body
       }).then(passed => {
@@ -56,7 +56,7 @@ describe('html5workertest', function () {
     tests.forEach(test => {
       it(test.name, () => {
         if (test.custom) {
-          return runCustomTest(test);
+          return runCustomTest(test)
         } else {
           return runBasicTest(test)
         }
@@ -76,10 +76,14 @@ describe('html5workertest', function () {
     }
 
     function postResults () {
-      var db = new PouchDB(process.env.COUCH_URL, {
-        username: process.env.COUCH_USERNAME,
-        password: process.env.COUCH_PASSWORD
-      })
+      var opts = {};
+      if (process.env.COUCH_USERNAME) {
+        opts = {
+          username: process.env.COUCH_USERNAME,
+          password: process.env.COUCH_PASSWORD
+        }
+      }
+      var db = new PouchDB(process.env.COUCH_URL, opts)
       var ua = new UAParser().getResult()
       return db.put({
         _id: new Date().toISOString(),
@@ -92,7 +96,7 @@ describe('html5workertest', function () {
     after(() => {
       displayResults()
 
-      if (typeof process.env.COUCH_URL !== 'undefined') {
+      if (typeof process.env.COUCH_URL !== 'undefined' && Object.keys(res).length === tests.length) {
         return postResults()
       }
     })

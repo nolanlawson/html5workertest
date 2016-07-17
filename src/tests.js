@@ -1,3 +1,5 @@
+/* global Worker,location */
+
 import functionToString from 'function-to-string'
 
 var tests = [
@@ -198,7 +200,7 @@ var tests = [
   {
     name: 'Transferable',
     custom: () => {
-      var buffLengthAfterPost;
+      var buffLengthAfterPost
       return {
         preWorker: worker => {
           var str = 'hello'
@@ -210,11 +212,11 @@ var tests = [
           }
           var insideWorkerFunc = e => {
             var buff = e.data.buff
-            var str = '';
-            var bytes = new Uint8Array(buff);
-            var i = -1;
+            var str = ''
+            var bytes = new Uint8Array(buff)
+            var i = -1
             while (++i < buff.byteLength) {
-              str += String.fromCharCode(bytes[i]);
+              str += String.fromCharCode(bytes[i])
             }
             return {
               buffValue: str,
@@ -230,7 +232,7 @@ var tests = [
         },
         postWorker: e => {
           var message = e.data.message
-          return message.buffValue == 'hello' &&
+          return message.buffValue === 'hello' &&
             message.buffLength === 5 &&
             buffLengthAfterPost === 0
         }
@@ -244,7 +246,7 @@ var tests = [
       if (!('transferControlToOffscreen' in canvas)) {
         return false
       }
-      var offscreen = canvas.transferControlToOffscreen();
+      var offscreen = canvas.transferControlToOffscreen()
       return {
         preWorker: worker => {
           var insideWorkerFunc = e => {
@@ -252,9 +254,9 @@ var tests = [
             try {
               var canvas = e.data.canvas
               var gl = canvas.getContext('webgl')
-              gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-              gl.drawArrays(gl.TRIANGLES, 0, n);
-              gl.commit();
+              gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+              gl.drawArrays(gl.TRIANGLES, 0, 3)
+              gl.commit()
               return {error: false}
             } catch (e) {
               console.log(e)

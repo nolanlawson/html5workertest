@@ -1,11 +1,13 @@
-if (typeof process.env.COUCH_URL === 'undefined') {
-  throw new Error('you must provide a COUCH_URL environment variable!')
-}
+var envVariables = [
+  'COUCH_URL',
+  'COUCH_USERNAME',
+  'COUCH_PASSWORD',
+  'SAUCE_USERNAME',
+  'SAUCE_ACCESS_KEY'
+]
 
-if (typeof process.env.COUCH_USERNAME === 'undefined') {
-  throw new Error('you must provide a COUCH_USERNAME environment variable!')
-}
-
-if (typeof process.env.COUCH_PASSWORD === 'undefined') {
-  throw new Error('you must provide a COUCH_PASSWORD environment variable!')
-}
+envVariables.forEach(variable => {
+  if (typeof process.env[variable] === 'undefined') {
+    throw new Error(`you must provide a ${variable} environment variable!`)
+  }
+})

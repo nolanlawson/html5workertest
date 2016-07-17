@@ -8,11 +8,11 @@ var b = browserify('./src/worker', {
   packageCache: {},
   plugin: [watchify],
   debug: true
-}).transform(babelify);
+}).transform(babelify)
 
 b.on('update', bundle)
 bundle()
 
 function bundle () {
-  b.bundle().pipe(fs.createWriteStream('worker-bundle.js'));
+  b.bundle().pipe(fs.createWriteStream('worker-bundle.js'))
 }
