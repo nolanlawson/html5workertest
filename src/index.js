@@ -67,46 +67,47 @@ describe('html5workertest', function () {
           return runBasicTest(test)
         })
       })
-
-      function displayResults () {
-        var pre = document.createElement('pre')
-        pre.style.position = 'absolute'
-        pre.style.top = '0'
-        pre.style.left = '40%'
-        pre.style.background = 'rgba(0, 0, 0, 0.7)'
-        pre.style.color = '#fafafa'
-        pre.style.padding = '40px'
-        pre.innerHTML = JSON.stringify(results, null, '  ')
-        document.body.appendChild(pre)
-      }
-
-      function postResults () {
-        var opts = {}
-        if (process.env.COUCH_USERNAME) {
-          opts = {
-            auth: {
-              username: process.env.COUCH_USERNAME,
-              password: process.env.COUCH_PASSWORD
-            }
-          }
-        }
-        var db = new PouchDB(process.env.COUCH_URL, opts)
-        var ua = new UAParser().getResult()
-        return db.put({
-          _id: new Date().toISOString(),
-          ua: ua,
-          results: results,
-          version: 1
-        })
-      }
-
-      after(() => {
-        displayResults()
-
-        if (typeof process.env.COUCH_URL !== 'undefined' && Object.keys(results).length === tests.length) {
-          return postResults()
-        }
-      })
     })
+  })
+
+  function displayResults () {
+    var pre = document.createElement('pre')
+    pre.style.position = 'absolute'
+    pre.style.top = '0'
+    pre.style.left = '40%'
+    pre.style.background = 'rgba(0, 0, 0, 0.7)'
+    pre.style.color = '#fafafa'
+    pre.style.padding = '40px'
+    pre.innerHTML = JSON.stringify(results, null, '  ')
+    document.body.appendChild(pre)
+  }
+
+  function postResults () {
+    var opts = {}
+    if (process.env.COUCH_USERNAME) {
+      opts = {
+        auth: {
+          username: process.env.COUCH_USERNAME,
+          password: process.env.COUCH_PASSWORD
+        }
+      }
+    }
+    var db = new PouchDB(process.env.COUCH_URL, opts)
+    var ua = new UAParser().getResult()
+    return db.put({
+      _id: new Date().toISOString(),
+      ua: ua,
+      results: results,
+      group: process.env.TRAVIS_BUILD_NUMBER || 0,
+      version: 1
+    })
+  }
+
+  after(() => {
+    displayResults()
+
+    if (typeof process.env.COUCH_URL !== 'undefined') {
+      return postResults()
+    }
   })
 })
