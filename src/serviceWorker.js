@@ -21,19 +21,6 @@ register(message => {
   return runTest(message.test)
 })
 
-function runCustomTest (e) {
-  /* eslint-disable no-new-func */
-  var func = new Function('e', e)
-  e.ports[0].postMessage({message: func(e)});
-}
-
-self.addEventListener('message', e => {
-  if (typeof e.data === 'string') {
-    return // let promise-worker handle it
-  }
-  runCustomTest(e)
-})
-
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', function (event) {
   event.waitUntil(self.clients.claim()) // activate right now
 })

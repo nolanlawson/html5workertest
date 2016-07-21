@@ -1,7 +1,5 @@
 /* global Worker,location */
 
-import functionToString from 'function-to-string'
-
 var tests = [
   //
   // basic tests

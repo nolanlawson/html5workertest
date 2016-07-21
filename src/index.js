@@ -7,7 +7,7 @@ import Promise from 'pouchdb-promise'
 import UAParser from 'ua-parser-js'
 import PouchDB from 'pouchdb-http'
 
-function setupServiceWorker() {
+function setupServiceWorker () {
   return navigator.serviceWorker.register('service-worker-bundle.js', {
     scope: './'
   }).then(() => {
@@ -21,7 +21,6 @@ function setupServiceWorker() {
         navigator.serviceWorker.removeEventListener('controllerchange', onControllerChange)
         resolve(navigator.serviceWorker)
       }
-
       navigator.serviceWorker.addEventListener('controllerchange', onControllerChange)
     })
   })
@@ -37,11 +36,10 @@ describe('html5workertest', function () {
     testSuites.push('Service Workers')
   }
   testSuites.forEach(testSuite => {
-
     results[testSuite] = {}
 
-    var worker;
-    var promiseWorker;
+    var worker
+    var promiseWorker
 
     before(() => {
       if (testSuite === 'Service Workers') {
@@ -56,44 +54,6 @@ describe('html5workertest', function () {
     })
 
     describe(testSuite, function () {
-
-      function runCustomTest (test) {
-        var customTest = test.custom()
-        if (!customTest) {
-          // short circuit, feature not supported
-          results[testSuite][test.name] = false
-          return
-        }
-        return new Promise((resolve, reject) => {
-          var onMessage = e => {
-            cleanup()
-            resolve(e)
-          }
-          var onError = err => {
-            cleanup(err)
-            reject(err)
-          }
-          var cleanup = () => {
-            worker.removeEventListener('message', onMessage)
-            worker.removeEventListener('error', onError)
-          }
-          worker.addEventListener('message', onMessage)
-          worker.addEventListener('error', onError)
-          try {
-            customTest.preWorker(worker)
-          } catch (e) {
-            console.log(e)
-            cleanup()
-            reject(e)
-          }
-        }).then(e => {
-          var passed = customTest.postWorker(e)
-          results[testSuite][test.name] = passed
-        }, () => { // error, assume failure
-          results[testSuite][test.name] = false
-        })
-      }
-
       function runBasicTest (test) {
         return promiseWorker.postMessage({
           test: functionToString(test.func).body
@@ -104,11 +64,7 @@ describe('html5workertest', function () {
 
       tests.forEach(test => {
         it(test.name, () => {
-          if (test.custom) {
-            return runCustomTest(test)
-          } else {
-            return runBasicTest(test)
-          }
+          return runBasicTest(test)
         })
       })
 

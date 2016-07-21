@@ -1,5 +1,3 @@
-/* global self */
-
 import register from 'promise-worker/register'
 import Promise from 'pouchdb-promise'
 
@@ -19,17 +17,4 @@ function runTest (func) {
 
 register(message => {
   return runTest(message.test)
-})
-
-function runCustomTest (e) {
-  /* eslint-disable no-new-func */
-  var func = new Function('e', e.data.func)
-  self.postMessage({message: func(e)})
-}
-
-self.addEventListener('message', e => {
-  if (typeof e.data === 'string') {
-    return // let promise-worker handle it
-  }
-  runCustomTest(e.data)
 })
