@@ -194,6 +194,11 @@ var tests = [
     name: 'WebSockets',
     func: () => typeof WebSocket !== 'undefined'
   },
+  {
+    name: 'requestIdleCallback',
+    func: () => typeof requestIdleCallback === 'function'
+  }
+/*
   //
   // custom tests
   //
@@ -274,6 +279,7 @@ var tests = [
       }
     }
   }
+  */
 ]
 
 export default tests

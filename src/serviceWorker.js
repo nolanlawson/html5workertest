@@ -23,21 +23,17 @@ register(message => {
 
 function runCustomTest (e) {
   /* eslint-disable no-new-func */
-  var func = new Function('e', e.data.func)
-  self.postMessage({message: func(e)})
+  var func = new Function('e', e)
+  e.ports[0].postMessage({message: func(e)});
 }
 
 self.addEventListener('message', e => {
   if (typeof e.data === 'string') {
     return // let promise-worker handle it
   }
-  runCustomTest(e.data)
+  runCustomTest(e)
 })
 
 self.addEventListener('activate', function(event) {
-  console.log('activate');
-  event.waitUntil((() => {
-    // activate right now
-    return self.clients.claim()
-  })())
+  event.waitUntil(self.clients.claim()) // activate right now
 })

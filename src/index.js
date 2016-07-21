@@ -7,58 +7,61 @@ import Promise from 'pouchdb-promise'
 import UAParser from 'ua-parser-js'
 import PouchDB from 'pouchdb-http'
 
+function setupServiceWorker() {
+  return navigator.serviceWorker.register('service-worker-bundle.js', {
+    scope: './'
+  }).then(() => {
+    if (navigator.serviceWorker.controller) {
+      // already active and controlling this page
+      return navigator.serviceWorker
+    }
+    // wait for a new service worker to control this page
+    return new Promise(resolve => {
+      function onControllerChange () {
+        navigator.serviceWorker.removeEventListener('controllerchange', onControllerChange)
+        resolve(navigator.serviceWorker)
+      }
+
+      navigator.serviceWorker.addEventListener('controllerchange', onControllerChange)
+    })
+  })
+}
+
 describe('html5workertest', function () {
   this.timeout(30000)
 
-  var testSuites = ['Web Workers', 'Service Workers']
+  var results = {}
+
+  var testSuites = ['Web Workers']
+  if ('serviceWorker' in navigator) {
+    testSuites.push('Service Workers')
+  }
   testSuites.forEach(testSuite => {
+
+    results[testSuite] = {}
 
     var worker;
     var promiseWorker;
 
     before(() => {
-      if (testSuite === 'Web Workers') {
+      if (testSuite === 'Service Workers') {
+        return setupServiceWorker().then(theWorker => {
+          worker = theWorker
+          promiseWorker = new PromiseWorker(worker)
+        })
+      } else {
         worker = new Worker('worker-bundle.js')
         promiseWorker = new PromiseWorker(worker)
-        return
-      } else if (!('serviceWorker' in navigator)) {
-        return
       }
-
-      return navigator.serviceWorker.register('service-worker-bundle.js', {
-        scope: './'
-      }).then(registration => {
-        if (navigator.serviceWorker.controller) {
-          return navigator.serviceWorker.controller
-        }
-        return new Promise(resolve => {
-          function onStateChange (newWorker) {
-            if (newWorker.state == 'activated' && navigator.serviceWorker.controller) {
-              resolve(navigator.serviceWorker.controller)
-            }
-          }
-
-          function onUpdateFound (registration) {
-            var newWorker = registration.installing;
-
-            registration.installing.addEventListener('statechange', () => onStateChange(newWorker))
-          }
-          registration.addEventListener('updatefound', () => onUpdateFound(registration));
-        });
-      }).then(controller => {
-        worker = controller
-        promiseWorker = new PromiseWorker(worker)
-      })
     })
 
     describe(testSuite, function () {
-      var res = {}
 
       function runCustomTest (test) {
         var customTest = test.custom()
         if (!customTest) {
           // short circuit, feature not supported
-          res[ test.name ] = false
+          results[testSuite][test.name] = false
           return
         }
         return new Promise((resolve, reject) => {
@@ -85,9 +88,9 @@ describe('html5workertest', function () {
           }
         }).then(e => {
           var passed = customTest.postWorker(e)
-          res[ test.name ] = passed
+          results[testSuite][test.name] = passed
         }, () => { // error, assume failure
-          res[ test.name ] = false
+          results[testSuite][test.name] = false
         })
       }
 
@@ -95,7 +98,7 @@ describe('html5workertest', function () {
         return promiseWorker.postMessage({
           test: functionToString(test.func).body
         }).then(passed => {
-          res[ test.name ] = passed
+          results[testSuite][test.name] = passed
         })
       }
 
@@ -117,7 +120,7 @@ describe('html5workertest', function () {
         pre.style.background = 'rgba(0, 0, 0, 0.7)'
         pre.style.color = '#fafafa'
         pre.style.padding = '40px'
-        pre.innerHTML = JSON.stringify(res, null, '  ')
+        pre.innerHTML = JSON.stringify(results, null, '  ')
         document.body.appendChild(pre)
       }
 
@@ -136,7 +139,7 @@ describe('html5workertest', function () {
         return db.put({
           _id: new Date().toISOString(),
           ua: ua,
-          results: res,
+          results: results,
           version: 1
         })
       }
@@ -144,7 +147,7 @@ describe('html5workertest', function () {
       after(() => {
         displayResults()
 
-        if (typeof process.env.COUCH_URL !== 'undefined' && Object.keys(res).length === tests.length) {
+        if (typeof process.env.COUCH_URL !== 'undefined' && Object.keys(results).length === tests.length) {
           return postResults()
         }
       })
