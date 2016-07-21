@@ -6,8 +6,10 @@
   "scripts": {
     "test-local": "concurrently --kill-others \"node bin/watch.js\" \"zuul --no-coverage --local 9000 src/index.js\"",
     "build-worker": "browserify -t babelify src/worker.js > worker-bundle.js && browserify -t babelify src/serviceWorker.js > service-worker-bundle.js",
-    "test": "standard && node bin/pretest.js && npm run build-worker && zuul --no-coverage src/index.js",
-    "standard": "standard"
+    "check-env-vars": "node bin/check-env-vars.js",
+    "standard": "standard",
+    "pretest": "run-scripts standard check-env-vars build-worker",
+    "test": "zuul --no-coverage src/index.js"
   },
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
@@ -29,6 +31,7 @@
     "browserify": "^13.0.1",
     "concurrently": "^2.2.0",
     "envify": "^3.4.1",
+    "run-scripts": "^0.4.0",
     "standard": "^7.1.2",
     "watchify": "^3.7.0",
     "zuul": "^3.10.1",
