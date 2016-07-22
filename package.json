@@ -16,6 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "blob-util": "^1.2.1",
+    "fetch-polyfill": "^0.8.2",
     "function-to-string": "^0.2.0",
     "node-assert": "0.0.1",
     "pouchdb-http": "^5.4.5",
@@ -34,7 +35,7 @@
     "run-scripts": "^0.4.0",
     "standard": "^7.1.2",
     "watchify": "^3.7.0",
-    "zuul": "^3.10.1",
+    "zuul": "nolanlawson/zuul#post-results",
     "zuul-localtunnel": "nolanlawson/zuul-localtunnel#https"
   },
   "repository": {

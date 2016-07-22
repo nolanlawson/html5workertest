@@ -1,11 +1,13 @@
-/* global it,describe,after,Worker,before,navigator */
+/* global it,describe,after,Worker,before,navigator,fetch,Headers */
 
 import PromiseWorker from 'promise-worker'
 import functionToString from 'function-to-string'
 import tests from './tests'
 import Promise from 'pouchdb-promise'
 import UAParser from 'ua-parser-js'
-import PouchDB from 'pouchdb-http'
+import _fetch from 'fetch-polyfill'
+
+console.log(_fetch)
 
 function setupServiceWorker () {
   return navigator.serviceWorker.register('service-worker-bundle.js', {
@@ -83,23 +85,21 @@ describe('html5workertest', function () {
   }
 
   function postResults () {
-    var opts = {}
-    if (process.env.COUCH_USERNAME) {
-      opts = {
-        auth: {
-          username: process.env.COUCH_USERNAME,
-          password: process.env.COUCH_PASSWORD
-        }
-      }
-    }
-    var db = new PouchDB(process.env.COUCH_URL, opts)
     var ua = new UAParser().getResult()
-    return db.put({
+    var jsonToPost = {
       _id: new Date().toISOString(),
       ua: ua,
       results: results,
       group: process.env.TRAVIS_BUILD_NUMBER || 0,
       version: 1
+    }
+    // non-standard; I forked zuul to add this behavior
+    return fetch('/__zuul/results', {
+      method: 'POST',
+      body: JSON.stringify(jsonToPost),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
     })
   }
 
