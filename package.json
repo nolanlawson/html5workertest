@@ -16,7 +16,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "blob-util": "^1.2.1",
-    "fetch-polyfill": "^0.8.2",
     "function-to-string": "^0.2.0",
     "node-assert": "0.0.1",
     "pouchdb-http": "^5.4.5",

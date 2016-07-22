@@ -1,13 +1,10 @@
-/* global it,describe,after,Worker,before,navigator,fetch,Headers */
+/* global it,describe,after,Worker,before,navigator,XMLHttpRequest */
 
 import PromiseWorker from 'promise-worker'
 import functionToString from 'function-to-string'
 import tests from './tests'
 import Promise from 'pouchdb-promise'
 import UAParser from 'ua-parser-js'
-import _fetch from 'fetch-polyfill'
-
-console.log(_fetch)
 
 function setupServiceWorker () {
   return navigator.serviceWorker.register('service-worker-bundle.js', {
@@ -93,13 +90,19 @@ describe('html5workertest', function () {
       group: process.env.TRAVIS_BUILD_NUMBER || 0,
       version: 1
     }
+
     // non-standard; I forked zuul to add this behavior
-    return fetch('/__zuul/results', {
-      method: 'POST',
-      body: JSON.stringify(jsonToPost),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest()
+      xhr.open('POST', '/__zuul/results')
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+          resolve()
+        }
+      }
+      xhr.onerror = reject
+      xhr.send(JSON.stringify(jsonToPost))
     })
   }
 
