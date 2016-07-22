@@ -1,3 +1,5 @@
-node_modules
-npm-debug.log
 *-bundle.js
+_pouch
+dist
+node_modules
+npm-debug*

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5 Worker Test</title>
+    <meta name="description" content="What APIs are supported in Web Workers and Service Workers?" />
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+      {{#each browsers}}
+        <th>{{ua.browser.name}}</th>
+      {{/each}}
+    </tr>
+    </thead>
+    <tbody>
+      {{#each workerTypes}}
+        <div>{{this}}</div>
+        {{#each this}}
+          <tr>{{@key}} {{this}}</tr>
+        {{/each}}
+      {{/each}}
+    </tbody>
+</table>
+
+</body>
+</html>
