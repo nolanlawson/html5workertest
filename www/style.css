@@ -43,6 +43,7 @@ h3 {
 
 .results-table {
   margin: 0 20px;
+  overflow-x: scroll;
 }
 
 th.browser {
@@ -51,4 +52,89 @@ th.browser {
 
 th.api-name {
   font-weight: normal;
+}
+.hero {
+  position: relative;
+  text-align: center;
+}
+
+.hero .quote {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: calc(50% + 108px);
+  max-width: 300px;
+
+  padding: 15px 15px 15px 20px;
+  margin: 0 10px 0 15px;
+  background: #fefefe;
+  border-radius: 25px;
+}
+
+.hero .quote p {
+  font-size: 15px;
+  text-align: left;
+  margin-top: 0;
+}
+
+/* "speech bubble" effect */
+.quote:after {
+  content: "";
+  position: absolute;
+  top: calc(100% - 20px);
+  left: 0px;
+  border-top: 40px solid #fefefe;
+  border-top-color: #fefefe;
+  border-left: 0px solid transparent;
+  border-right: 55px solid transparent;
+}
+
+.big-hero {
+  margin-top: 20px;
+}
+.little-hero {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .hero .quote {
+    display: block;
+    position: inherit;
+    left: 0;
+    max-width: 100%;
+  }
+  .hero .quote p {
+    font-size: 14px;
+  }
+  .big-hero {
+    display: none;
+  }
+  .little-hero {
+    display: inherit;
+    max-width: 108px;
+    margin: 20px auto;
+  }
+  .quote:after {
+    margin-left: calc(50% + 30px);
+  }
+  th.api-name {
+    font-size: 12px;
+  }
+  th img {
+    max-width: 24px;
+  }
+  th.browser {
+    font-size: 12px;
+  }
+  th.api-name {
+    font-size: 12px;
+  }
+  .container {
+    padding-top: 10px;
+    margin-top: 0;
+  }
+  h1 {
+    margin-right: 50px;
+    margin-left: 50px;
+  }
 }

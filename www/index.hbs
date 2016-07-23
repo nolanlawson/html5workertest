@@ -4,6 +4,7 @@
   <meta charset="utf-8"/>
   <title>HTML5 Worker Test</title>
   <meta name="description" content="What APIs are supported in Web Workers and Service Workers?"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
         integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css"/>
@@ -16,7 +17,17 @@
 <h1>HTML5 Worker Test</h1>
 <p>Which APIs are supported in Web Workers and Service Workers?</p>
 <div class="hero">
-  <img src="hero.png" alt="HTML5WorkerTest.com logo"/>
+  <img class="big-hero" src="hero.png" alt="HTML5WorkerTest.com logo"/>
+  <div class="quote">
+    <p>
+      ⚠️️ &nbsp; Not all browser APIs are supported in
+      <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">Web Workers</a>
+      and
+      <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a>.
+      This handy chart shows the support for each browser, based on <a target="_blank" href="https://github.com/nolanlawson/html5workertest">automated testing</a>.
+    </p>
+  </div>
+  <img class="little-hero" src="hero.png" alt="HTML5WorkerTest.com logo"/>
 </div>
 {{#each workerTypes}}
 <h3>{{name}}</h3>
