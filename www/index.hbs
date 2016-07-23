@@ -13,16 +13,22 @@
     <thead>
     <tr>
       {{#each browsers}}
-        <th>{{ua.browser.name}}</th>
+        <th>{{name}}</th>
       {{/each}}
     </tr>
     </thead>
     <tbody>
       {{#each workerTypes}}
-        <div>{{this}}</div>
-        {{#each this}}
-          <tr>{{@key}} {{this}}</tr>
+        <tr><td>{{name}}</td></tr>
+        {{#each apis}}
+          <tr>
+              <th>{{@key}}</th>
+              {{#each this}}
+                <td>{{#if this}}Y{{else}}N{{/if}}</td>
+              {{/each}}
+          </tr>
         {{/each}}
+
       {{/each}}
     </tbody>
 </table>

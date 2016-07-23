@@ -10,7 +10,7 @@ var handlebars = require('handlebars')
 var BROWSERS = ['Chrome', 'Firefox', 'Safari', 'Edge']
 
 Promise.resolve().then(() => {
-  return readFile('www/index.html', 'utf-8')
+  return readFile('www/index.hbs', 'utf-8')
 }).then(template => {
   return db.replicate.from('http://nolan.cloudant.com/html5workertest').then(() => {
     return db.allDocs({ include_docs: true })
@@ -20,15 +20,44 @@ Promise.resolve().then(() => {
     docs = docs.filter(doc => parseInt(doc.group) === lastGroup)
 
     var browsersToLatestResults = BROWSERS.map(browser => {
-      return lodash.find(docs, doc => doc.ua.browser.name === browser)
+      var doc = lodash.find(docs, doc => doc.ua.browser.name === browser)
+      return {name: browser, results: doc.results}
     })
 
-    var html = handlebars.compile(template)({
+    var workerTypesToBrowsers = ['Web Workers', 'Service Workers'].map(workerType => {
+      var apisToBrowserToSupported = {}
+
+      browsersToLatestResults.forEach(browser => {
+        var workerResults = browser.results[workerType]
+        Object.keys(workerResults || {}).forEach(api => {
+          apisToBrowserToSupported[api] = []
+        })
+      })
+      browsersToLatestResults.forEach(browser => {
+        var workerResults = browser.results[workerType]
+        Object.keys(apisToBrowserToSupported).forEach(api => {
+          apisToBrowserToSupported[api].push({
+            browser: browser.name,
+            supported: workerResults && workerResults[api]
+          })
+        })
+      })
+      return {
+        name: workerType,
+        apis: apisToBrowserToSupported
+      }
+    })
+
+    var templateContext = {
       browsers: browsersToLatestResults,
-      workerTypes: ['Web Workers', 'Service Workers']
-    })
+      workerTypes: workerTypesToBrowsers
+    }
 
-    return writeFile('dist/index.html', html, 'utf-8')
+    console.log(JSON.stringify(templateContext, null, '  '))
+
+    var html = handlebars.compile(template)(templateContext)
+
+    return writeFile('dist/index.htmlf', html, 'utf-8')
   })
 }).catch(err => {
   console.error(err)
