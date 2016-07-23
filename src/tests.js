@@ -121,7 +121,7 @@ var tests = [
     func: () => typeof createImageBitmap === 'function'
   },
   {
-    name: 'Sub-Worker',
+    name: 'Worker',
     func: () => typeof Worker === 'function'
   },
   {
@@ -133,7 +133,7 @@ var tests = [
     func: () => typeof fetch === 'function'
   },
   {
-    name: 'XmlHTTPRequest',
+    name: 'XMLHttpRequest',
     func: () => typeof XMLHttpRequest === 'function'
   },
   {
