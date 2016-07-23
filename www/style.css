@@ -1,0 +1,25 @@
+.supported {
+  color: #258aa5;
+}
+
+.unsupported {
+  color: #600602;
+}
+
+body {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  margin: 40px 0;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 18px;
+}
