@@ -1,14 +1,22 @@
 .supported {
   color: #258aa5;
+  text-align: center;
 }
 
 .unsupported {
-  color: #600602;
+  color: darkred;
+  text-align: center;
 }
 
 body {
-  max-width: 800px;
   margin: 0 auto;
+}
+
+.container {
+  background: #ededed;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .hero {
@@ -16,10 +24,31 @@ body {
   margin: 40px 0;
 }
 
-h1, h2, h3 {
+h1, h2 {
   text-align: center;
 }
 
-h2 {
-  font-size: 18px;
+p {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+h3 {
+  background: sandybrown;
+  color: #fafafa;
+  padding: 5px 20px;
+  text-align: left;
+}
+
+.results-table {
+  margin: 0 20px;
+}
+
+th.browser {
+  text-align: center;
+}
+
+th.api-name {
+  font-weight: normal;
 }

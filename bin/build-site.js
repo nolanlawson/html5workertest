@@ -79,7 +79,7 @@ function buildSite () {
     }
 
     function buildAndLogErrors() {
-      build().catch(err => console.error(err.stack))
+      build().then(() => console.log('Built site')).catch(err => console.error(err.stack))
     }
     if (process.argv[process.argv.length - 1] !== 'dev') {
       return build()

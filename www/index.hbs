@@ -9,33 +9,35 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
+<div class="container">
 <a href="https://github.com/nolanlawson/html5workertest"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
 
 <h1>HTML5 Worker Test</h1>
-<h2>Which APIs do browsers support in Web Workers and Service Workers?</h2>
+<p>Which APIs are supported in Web Workers and Service Workers?</p>
 <div class="hero">
   <img src="hero.png" alt="HTML5WorkerTest.com logo"/>
 </div>
-<div>
+{{#each workerTypes}}
+<h3>{{name}}</h3>
+<div class="results-table">
   <table class="table table-striped">
     <thead>
     <tr>
       <th></th>
-      {{#each browsers}}
-      <th>{{name}}</th>
+      {{#each ../browsers}}
+      <th class="browser">
+        <img src="img/browser-{{name}}.png" alt="{{name}} logo"/>
+        <br/>
+        {{name}}
+      </th>
       {{/each}}
     </tr>
     </thead>
     <tbody>
-    {{#each workerTypes}}
-    <tr>
-      <td colspan="8">{{name}}</td>
-    </tr>
     {{#each apis}}
     <tr>
-      <th>{{@key}}</th>
+      <th class="api-name">{{@key}}</th>
       {{#each this}}
       <td class="{{#if this.supported}}supported{{else}}unsupported{{/if}}">
         {{#if this.supported}}&#10003;{{else}}&#10007;{{/if}}
@@ -43,11 +45,10 @@
       {{/each}}
     </tr>
     {{/each}}
-
-    {{/each}}
     </tbody>
   </table>
 </div>
-
+{{/each}}
+</div>
 </body>
 </html>
