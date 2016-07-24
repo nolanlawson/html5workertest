@@ -15,4 +15,4 @@ git push --force origin ${branchname}:gh-pages
 
 git checkout -
 
-branch branch -D $branchname
+git branch -D $branchname
