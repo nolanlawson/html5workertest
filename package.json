@@ -11,7 +11,8 @@
     "pretest": "run-scripts standard check-env-vars build-worker",
     "test": "zuul --no-coverage src/index.js",
     "build-site": "rimraf dist && mkdirp dist && node bin/build-site.js",
-    "watch-site": "rimraf dist && mkdirp dist && concurrently --kill-others \"node bin/build-site.js dev\" \"hs -p 9000\""
+    "watch-site": "rimraf dist && mkdirp dist && concurrently --kill-others \"node bin/build-site.js dev\" \"hs -p 9000\"",
+    "publish-site": "bash ./bin/publish-site.sh"
   },
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
