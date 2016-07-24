@@ -165,7 +165,6 @@ th.api-name {
 }
 .my-modal-container {
   padding: 20px;
-  pointer-events: none;
 }
 .my-modal-dialog h2 {
   margin: 0;
