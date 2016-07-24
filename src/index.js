@@ -107,7 +107,11 @@ describe('html5workertest', function () {
   }
 
   after(() => {
-    displayResults()
+    window.testResults = results;
+    if (location.pathname.match(/test.html$/)) {
+      // only show this when running in non-user-facing mode, i.e. zuul
+      displayResults()
+    }
 
     if (typeof process.env.COUCH_URL !== 'undefined') {
       return postResults()

@@ -9,6 +9,8 @@ var handlebars = require('handlebars')
 var compareVersion = require('compare-version')
 var ncp = denodeify(require('ncp'))
 var watchGlob = require('watch-glob')
+var browserify = require('browserify')
+var streamToPromise = require('stream-to-promise')
 
 var BROWSERS = ['Chrome', 'Firefox', 'IE', 'Edge', 'Safari', 'iOS', 'Android']
 var WORKER_TYPES = ['Web Workers', 'Service Workers']
@@ -131,6 +133,17 @@ function buildSite () {
         var html = template(templateContext)
         return writeFile('dist/index.html', html, 'utf-8').then(() => {
           return ncp('./www', './dist')
+        }).then(() => {
+          return ncp('./node_modules/mocha/mocha.js', './dist/mocha.js')
+        }).then(() => {
+          return ncp('./service-worker-bundle.js', './dist/service-worker-bundle.js')
+        }).then(() => {
+          return ncp('./worker-bundle.js', './dist/worker-bundle.js')
+        }).then(() => {
+          var b = browserify('./src').transform('babelify').bundle()
+          return streamToPromise(b).then(b => {
+            return writeFile('www/test-bundle.js', b)
+          })
         })
       })
     }
