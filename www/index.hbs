@@ -38,9 +38,9 @@
       <th></th>
       {{#each ../browsers}}
       <th class="browser">
-        <img src="img/browser-{{name}}.png" alt="{{name}} logo"/>
+        <img src="img/browser-{{name}}.png" alt="{{verboseName}} logo"/>
         <br/>
-        {{name}}
+        {{verboseName}}
         <br/>
         <span class="browser-version">{{version}}</span> <a class="browser-more" href="#{{name}}">more</a>
       </th>
@@ -68,7 +68,7 @@
   <div class="my-modal-dialog" id="{{name}}">
     <div class="my-modal-dialog-inner">
       <div class="my-modal-header">
-        <h2>Breakdown for {{name}}</h2>
+        <h2>Breakdown for {{verboseName}}</h2>
         <button type="button" class="btn btn-default close-my-modal" aria-label="Close">×</button>
       </div>
       <div class="my-modal-container">
@@ -81,9 +81,9 @@
                 <th></th>
                 {{#each ../versions}}
                   <th class="browser">
-                    <img src="img/browser-{{../../name}}.png" alt="{{../../name}} logo"/>
+                    <img src="img/browser-{{../../name}}.png" alt="{{../../verboseName}} logo"/>
                     <br/>
-                    {{../../name}}
+                    {{../../verboseName}}
                     <br/>
                     <span class="browser-version">{{this}}</span>
                   </th>

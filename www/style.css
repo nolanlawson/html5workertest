@@ -130,6 +130,7 @@ th.api-name {
 
 .table {
   margin-bottom: 0;
+  table-layout: fixed;
 }
 
 .my-modal-dialog {

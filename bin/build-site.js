@@ -20,11 +20,21 @@ function getSimpleName (ua) {
   return ua.browser.name
 }
 
-function getSimpleVersion (ua) {
+function getVerboseVersion (ua) {
   if (ua.device.type === 'mobile') {
     return `${ua.browser.major} (${ua.os.name} ${ua.os.version})`
   }
   return ua.browser.major
+}
+
+function getVerboseName(simpleName) {
+  if (simpleName === 'iOS') {
+    return 'iOS Safari'
+  } else if (simpleName === 'Android') {
+    return 'Android Chrome'
+  } else {
+    return simpleName
+  }
 }
 
 function getContext () {
@@ -43,6 +53,7 @@ function getContext () {
       var latest = lodash.reverse(sorted)[0]
       return {
         name: browser,
+        verboseName: getVerboseName(browser),
         version: latest.ua.browser.major,
         results: latest.results
       }
@@ -97,8 +108,9 @@ function getContext () {
       })
       return {
         name: browser,
+        verboseName: getVerboseName(browser),
         workerTypes: workerTypes,
-        versions: sortedVersions.map(doc => getSimpleVersion(doc.ua))
+        versions: sortedVersions.map(doc => getVerboseVersion(doc.ua))
       }
     })
 
