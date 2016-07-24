@@ -20,6 +20,13 @@ function getSimpleName (ua) {
   return ua.browser.name
 }
 
+function getSimpleVersion (ua) {
+  if (ua.device.type === 'mobile') {
+    return `${ua.browser.major} (${ua.os.name} ${ua.os.version})`
+  }
+  return ua.browser.major
+}
+
 function getContext () {
   return db.replicate.from('http://nolan.cloudant.com/html5workertest').then(() => {
     return db.allDocs({ include_docs: true })
@@ -63,6 +70,9 @@ function getContext () {
 
     var browsersToWorkerTypesToApisToVersionsToSupported = BROWSERS.map(browser => {
       var browserDocs = docs.filter(doc => getSimpleName(doc.ua) === browser)
+      // remove duplicates, which are added occasionally due to Travis restarted jobs
+      browserDocs = lodash.uniqBy(browserDocs, doc => `${getSimpleName(doc.ua)}_${doc.ua.browser.major}`)
+
       var sortedVersions = browserDocs.sort((a, b) => compareVersion(a.ua.browser.major, b.ua.browser.major))
 
       var workerTypes = WORKER_TYPES.map(workerType => {
@@ -88,7 +98,7 @@ function getContext () {
       return {
         name: browser,
         workerTypes: workerTypes,
-        versions: sortedVersions.map(doc => doc.ua.browser.major)
+        versions: sortedVersions.map(doc => getSimpleVersion(doc.ua))
       }
     })
 
