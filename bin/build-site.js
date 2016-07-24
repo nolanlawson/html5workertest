@@ -28,26 +28,29 @@ function getContext () {
     var lastGroup = Math.max.apply(null, docs.map(_ => parseInt(_.group)))
     docs = docs.filter(doc => parseInt(doc.group) === lastGroup)
 
-    var browsersToLatestResults = BROWSERS.map(browser => {
+    var allApis = lodash.uniq(lodash.flatten(docs.map(doc => Object.keys(doc.results['Web Workers']))));
+
+    var browsersToResults = BROWSERS.map(browser => {
       var browserDocs = docs.filter(doc => getSimpleName(doc.ua) === browser)
-      var latest = browserDocs.sort((a, b) => compareVersion(b.ua.browser.major, a.ua.browser.major))[ 0 ]
-      return { name: browser, results: latest.results }
+      var sorted = browserDocs.sort((a, b) => compareVersion(a.ua.browser.major, b.ua.browser.major))
+      var latest = lodash.reverse(sorted)[0]
+      return {
+        name: browser,
+        version: latest.ua.browser.major,
+        results: latest.results
+      }
     })
 
-    var workerTypesToBrowsers = WORKER_TYPES.map(workerType => {
+    var workerTypesToApisToBrowsersToSupported = WORKER_TYPES.map(workerType => {
       var apisToBrowserToSupported = {}
-
-      browsersToLatestResults.forEach(browser => {
-        var workerResults = browser.results[ workerType ]
-        Object.keys(workerResults || {}).forEach(api => {
-          apisToBrowserToSupported[ api ] = []
-        })
+      allApis.forEach(api => {
+        apisToBrowserToSupported[api] = []
       })
-      browsersToLatestResults.forEach(browser => {
+
+      browsersToResults.forEach(browser => {
         var workerResults = browser.results[ workerType ]
         Object.keys(apisToBrowserToSupported).forEach(api => {
-          apisToBrowserToSupported[ api ].push({
-            browser: browser.name,
+          apisToBrowserToSupported[api].push({
             supported: workerResults && workerResults[ api ]
           })
         })
@@ -58,9 +61,45 @@ function getContext () {
       }
     })
 
+    var browsersToWorkerTypesToApisToVersionsToSupported = BROWSERS.map(browser => {
+
+      var browserDocs = docs.filter(doc => getSimpleName(doc.ua) === browser)
+      var sortedVersions = browserDocs.sort((a, b) => compareVersion(a.ua.browser.major, b.ua.browser.major))
+
+      var workerTypes = WORKER_TYPES.map(workerType => {
+        var apisToVersionToSupported = {}
+        allApis.forEach(api => {
+          apisToVersionToSupported[api] = []
+        })
+
+        sortedVersions.forEach(version => {
+          var workerResults = version.results[ workerType ]
+          Object.keys(apisToVersionToSupported).forEach(api => {
+            apisToVersionToSupported[ api ].push({
+              supported: workerResults && workerResults[ api ]
+            })
+          })
+        })
+        return {
+          name: workerType,
+          versions: sortedVersions,
+          apis: apisToVersionToSupported
+        }
+      })
+      return {
+        name: browser,
+        workerTypes: workerTypes,
+        versions: sortedVersions.map(doc => doc.ua.browser.major)
+      }
+    })
+
+    console.log(browsersToWorkerTypesToApisToVersionsToSupported)
+
+
     var templateContext = {
-      browsers: browsersToLatestResults,
-      workerTypes: workerTypesToBrowsers
+      browsers: browsersToResults,
+      workerTypes: workerTypesToApisToBrowsersToSupported,
+      detailedBrowsers: browsersToWorkerTypesToApisToVersionsToSupported
     }
     return templateContext
   })
