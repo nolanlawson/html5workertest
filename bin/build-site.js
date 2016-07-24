@@ -28,7 +28,7 @@ function getContext () {
     var lastGroup = Math.max.apply(null, docs.map(_ => parseInt(_.group)))
     docs = docs.filter(doc => parseInt(doc.group) === lastGroup)
 
-    var allApis = lodash.uniq(lodash.flatten(docs.map(doc => Object.keys(doc.results['Web Workers']))));
+    var allApis = lodash.uniq(lodash.flatten(docs.map(doc => Object.keys(doc.results['Web Workers']))))
 
     var browsersToResults = BROWSERS.map(browser => {
       var browserDocs = docs.filter(doc => getSimpleName(doc.ua) === browser)
@@ -62,7 +62,6 @@ function getContext () {
     })
 
     var browsersToWorkerTypesToApisToVersionsToSupported = BROWSERS.map(browser => {
-
       var browserDocs = docs.filter(doc => getSimpleName(doc.ua) === browser)
       var sortedVersions = browserDocs.sort((a, b) => compareVersion(a.ua.browser.major, b.ua.browser.major))
 
@@ -93,9 +92,6 @@ function getContext () {
       }
     })
 
-    console.log(browsersToWorkerTypesToApisToVersionsToSupported)
-
-
     var templateContext = {
       browsers: browsersToResults,
       workerTypes: workerTypesToApisToBrowsersToSupported,
@@ -107,7 +103,7 @@ function getContext () {
 
 function buildSite () {
   return getContext().then(templateContext => {
-    function build() {
+    function build () {
       return readFile('www/index.hbs', 'utf-8').then(templateSource => {
         var template = handlebars.compile(templateSource)
         var html = template(templateContext)
@@ -117,7 +113,7 @@ function buildSite () {
       })
     }
 
-    function buildAndLogErrors() {
+    function buildAndLogErrors () {
       build().then(() => console.log('Built site')).catch(err => console.error(err.stack))
     }
     if (process.argv[process.argv.length - 1] !== 'dev') {

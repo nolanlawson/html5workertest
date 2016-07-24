@@ -1,3 +1,5 @@
+/* global window,location,history,document */
+
 (function () {
   'use strict'
 
@@ -5,7 +7,7 @@
 
   // only go back if the user has a state to go back to, i.e. they didn't start on
   // a URL like index.html#Safari
-  function goBack() {
+  function goBack () {
     if (hasNavigated) {
       history.back()
     } else { // go forward
@@ -15,7 +17,7 @@
 
   // allow the user to press escape to dismiss the modal
   document.addEventListener('keydown', function (e) {
-    if (e.keyCode == 27 && location.hash) { // escape
+    if (e.keyCode === 27 && location.hash) { // escape
       goBack()
     }
   })
@@ -43,7 +45,7 @@
   }
 
   // prevent body from scrolling when modal is shown
-  function preventBodyScrolling() {
+  function preventBodyScrolling () {
     document.body.style.overflowY = location.hash ? 'hidden' : 'scroll'
   }
 
@@ -52,5 +54,4 @@
     preventBodyScrolling()
   })
   preventBodyScrolling()
-
 })()
