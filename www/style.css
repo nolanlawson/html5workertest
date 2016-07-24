@@ -1,10 +1,20 @@
+a {
+  color: #4c26e3;
+}
+
+a:focus, a:hover {
+  color: #3E20B8;
+}
+
 .supported {
-  color: #258aa5;
+  font-size: 18px;
+  color: #4c26e3;
   text-align: center;
 }
 
 .unsupported {
-  color: darkred;
+  font-size: 18px;
+  color: #e44d20;
   text-align: center;
 }
 
@@ -105,7 +115,7 @@ th.api-name {
   color: #aaa;
 }
 .footer a {
-  color: rgba(51, 122, 183, 0.8);
+  color: rgba(76, 38, 227, 0.7);
 }
 
 .browser-version {
@@ -115,7 +125,7 @@ th.api-name {
 
 .browser-more {
   font-size: 12px;
-  color: rgba(51, 122, 183, 0.8);
+  color: rgba(76, 38, 227, 0.7);
 }
 
 .table {
