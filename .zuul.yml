@@ -5,7 +5,6 @@ tunnel:
 browserify:
   - transform: babelify
   - transform: envify
-concurrency: 1
 browsers:
   - name: chrome
     version: 45..latest
