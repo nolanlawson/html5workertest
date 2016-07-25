@@ -9,6 +9,7 @@ git checkout -b ${branchname}
 mv dist/* .
 
 git add -A
+git add -f *-bundle.js
 git commit -m 'build'
 
 git push --force origin ${branchname}:gh-pages
