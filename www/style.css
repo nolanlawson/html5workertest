@@ -186,8 +186,10 @@ th.api-name {
   text-align: center;
 }
 .close-my-modal {
+  font-weight: bold;
   font-size: 20px;
   min-width: 50px;
+  padding-bottom: 10px;
 }
 
 .muted {
@@ -252,6 +254,7 @@ th.api-name {
     min-width: 50px;
     max-height: 50px;
     font-size: 16px;
+    padding-bottom: 7px;
   }
   .my-modal-header {
     min-height: 50px;

@@ -29,7 +29,7 @@ function getVerboseVersion (ua) {
   return ua.browser.major
 }
 
-function getVerboseName(simpleName) {
+function getVerboseName (simpleName) {
   if (simpleName === 'iOS') {
     return 'iOS Safari'
   } else if (simpleName === 'Android') {

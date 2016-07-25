@@ -1,5 +1,5 @@
-/* global mocha,document,window */
-((function () {
+/* global mocha,document,window,Handlebars */
+(function () {
   var $ = document.querySelector.bind(document)
   var runner = mocha.run()
 
@@ -24,4 +24,4 @@
     el.innerHTML = html
     $('.container').appendChild(el)
   })
-}))()
+})()

@@ -1,4 +1,4 @@
-/* global it,describe,after,Worker,before,navigator,XMLHttpRequest */
+/* global it,describe,after,Worker,before,navigator,XMLHttpRequest,location */
 
 import PromiseWorker from 'promise-worker'
 import functionToString from 'function-to-string'
@@ -107,7 +107,7 @@ describe('html5workertest', function () {
   }
 
   after(() => {
-    window.testResults = results;
+    window.testResults = results
     if (!/test.html$/.test(location.pathname)) {
       // only show this when running in non-user-facing mode, i.e. zuul
       displayResults()
