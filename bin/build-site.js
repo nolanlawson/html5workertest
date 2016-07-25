@@ -24,9 +24,9 @@ function getSimpleName (ua) {
 
 function getVerboseVersion (ua) {
   if (ua.device.type === 'mobile') {
-    return `${ua.browser.major} (${ua.os.name} ${ua.os.version})`
+    return `${ua.browser.version.replace(/(\.0)+$/, '')} (${ua.os.name} ${ua.os.version})`
   }
-  return ua.browser.major
+  return ua.browser.version.replace(/(\.0)+$/, '')
 }
 
 function getVerboseName (simpleName) {
