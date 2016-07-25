@@ -190,6 +190,10 @@ th.api-name {
   min-width: 50px;
 }
 
+.muted {
+  color: rgba(0, 0, 0, 0.4)
+}
+
 @media (max-width: 767px) {
   .hero .quote {
     display: block;

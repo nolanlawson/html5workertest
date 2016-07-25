@@ -134,6 +134,8 @@ function buildSite () {
         return writeFile('dist/index.html', html, 'utf-8').then(() => {
           return ncp('./www', './dist')
         }).then(() => {
+          return ncp('./node_modules/handlebars/dist/handlebars.js', './dist/handlebars.js')
+        }).then(() => {
           return ncp('./node_modules/mocha/mocha.js', './dist/mocha.js')
         }).then(() => {
           return ncp('./service-worker-bundle.js', './dist/service-worker-bundle.js')

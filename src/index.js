@@ -108,7 +108,7 @@ describe('html5workertest', function () {
 
   after(() => {
     window.testResults = results;
-    if (location.pathname.match(/test.html$/)) {
+    if (!/test.html$/.test(location.pathname)) {
       // only show this when running in non-user-facing mode, i.e. zuul
       displayResults()
     }
