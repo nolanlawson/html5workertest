@@ -175,7 +175,7 @@ th.api-name {
   display: inline-block;
   float: right;
 }
-.my-modal-dialog:target {
+.my-modal-dialog.targeted {
   opacity: 1;
   pointer-events: auto;
 }
