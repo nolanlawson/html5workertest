@@ -31,37 +31,6 @@
     ui: 'bdd'
   })
 </script>
-<script id="main-template" type="text/x-handlebars-template">
-<h1>Test results for your browser</h1>
-{{#each workerTypes}}
-  <h3>{{@key}}</h3>
-  <div class="results-table">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th></th>
-        <th class="browser">
-          <img src="img/browser-Android-generic.png" alt="Generic browser logo"/>
-          <br/>
-          <span class="browser-version">Your browser<br/><span class="muted">({{../uaString}})</span></span>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      {{#each this}}
-        <tr>
-          <th class="api-name">{{@key}}</th>
-          <td class="{{#if this}}supported{{else}}unsupported{{/if}}">
-            {{#if this}}&#10003;{{else}}&#10007;{{/if}}
-          </td>
-        </tr>
-      {{/each}}
-      </tbody>
-    </table>
-  </div>
-{{/each}}
-</script>
 <script src="test-bundle.js"></script>
-<script src="test-script.js"></script>
 </body>
 </html>

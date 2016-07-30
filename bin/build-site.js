@@ -142,8 +142,8 @@ function buildSite () {
         }).then(() => {
           return ncp('./worker-bundle.js', './dist/worker-bundle.js')
         }).then(() => {
-          var b = browserify('./src').transform('babelify').bundle()
-          return streamToPromise(b).then(b => {
+          var b = browserify('./src/testMyBrowser').transform('hbsify').transform('babelify')
+          return streamToPromise(b.bundle()).then(b => {
             return writeFile('www/test-bundle.js', b)
           })
         })
@@ -151,13 +151,16 @@ function buildSite () {
     }
 
     function buildAndLogErrors () {
-      build().then(() => console.log('Built site')).catch(err => console.error(err.stack))
+      build().then(() => console.log('Built site')).catch(err => {
+        console.error(err)
+        console.error(err.stack)
+      })
     }
     if (process.argv[process.argv.length - 1] !== 'dev') {
       return build()
     }
 
-    watchGlob('www/*', lodash.debounce(buildAndLogErrors, 300))
+    watchGlob(['src/*', 'www/index.hbs'], lodash.debounce(buildAndLogErrors, 300))
     buildAndLogErrors()
   })
 }

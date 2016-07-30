@@ -11,7 +11,7 @@
     "pretest": "run-scripts standard check-env-vars build-worker",
     "test": "zuul --no-coverage src/index.js",
     "build-site": "rimraf dist && mkdirp dist && npm run build-worker && node bin/build-site.js",
-    "watch-site": "rimraf dist && mkdirp dist && concurrently --kill-others \"node bin/build-site.js dev\" \"hs -p 5000\"",
+    "watch-site": "rimraf dist && mkdirp dist && npm run build-worker && concurrently --kill-others \"node bin/build-site.js dev\" \"hs -p 5000\"",
     "publish-site": "bash ./bin/publish-site.sh"
   },
   "keywords": [],
@@ -37,7 +37,9 @@
     "concurrently": "^2.2.0",
     "denodeify": "^1.2.1",
     "envify": "^3.4.1",
+    "errorify": "^0.3.1",
     "handlebars": "^4.0.5",
+    "hbsify": "^1.0.1",
     "http-server": "^0.9.0",
     "lodash": "^4.13.1",
     "mkdirp": "^0.5.1",
