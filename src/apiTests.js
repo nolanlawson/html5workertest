@@ -231,7 +231,7 @@ var tests = [
   },
   {
     name: 'URL',
-    category: 'Network',
+    category: 'Miscellaneous',
     func: () => typeof URL !== 'undefined'
   },
   {

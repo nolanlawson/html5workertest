@@ -16,7 +16,7 @@ function testResultsToFormattedResults (testResults) {
       })
     })
     categories.forEach(category => {
-      categoriesToApiTests[category].sort((a, b) => a.name < b.name ? -1 : 1)
+      categoriesToApiTests[category].sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
       workerResults.push({
         name: category,
         results: categoriesToApiTests[category]
