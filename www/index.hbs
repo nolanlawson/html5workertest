@@ -50,15 +50,20 @@
     </tr>
     </thead>
     <tbody>
-    {{#each apis}}
-    <tr>
-      <th class="api-name">{{@key}}</th>
-      {{#each this}}
-      <td class="{{#if this.supported}}supported{{else}}unsupported{{/if}}">
-        {{#if this.supported}}&#10003;{{else}}&#10007;{{/if}}
-      </td>
+    {{#each results}}
+      <tr>
+        <th class="category" colspan="8">{{name}}</th>
+      </tr>
+      {{#each results}}
+        <tr>
+          <th class="api-name">{{name}}</th>
+          {{#each results}}
+            <td class="{{#if supported}}supported{{else}}unsupported{{/if}}">
+              {{#if supported}}&#10003;{{else}}&#10007;{{/if}}
+            </td>
+          {{/each}}
+        </tr>
       {{/each}}
-    </tr>
     {{/each}}
     </tbody>
   </table>
@@ -74,7 +79,7 @@
         <button type="button" class="btn btn-default close-my-modal" aria-label="Close">×</button>
       </div>
       <div class="my-modal-container">
-        {{#each workerTypes}}
+        {{#each results}}
           <h3>{{name}}</h3>
           <div class="results-table">
             <table class="table table-striped">
@@ -93,15 +98,20 @@
               </tr>
               </thead>
               <tbody>
-              {{#each apis}}
+              {{#each results}}
                 <tr>
-                  <th class="api-name">{{@key}}</th>
-                  {{#each this}}
-                    <td class="{{#if this.supported}}supported{{else}}unsupported{{/if}}">
-                      {{#if this.supported}}&#10003;{{else}}&#10007;{{/if}}
-                    </td>
-                  {{/each}}
+                  <th class="category" colspan="{{tableWidth}}">{{name}}</th>
                 </tr>
+                {{#each results}}
+                  <tr>
+                    <th class="api-name">{{name}}</th>
+                    {{#each results}}
+                      <td class="{{#if supported}}supported{{else}}unsupported{{/if}}">
+                        {{#if supported}}&#10003;{{else}}&#10007;{{/if}}
+                      </td>
+                    {{/each}}
+                  </tr>
+                {{/each}}
               {{/each}}
               </tbody>
             </table>

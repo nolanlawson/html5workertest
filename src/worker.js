@@ -1,5 +1,5 @@
-import register from 'promise-worker/register'
-import Promise from 'pouchdb-promise'
+var register = require('promise-worker/register')
+var Promise = require('pouchdb-promise')
 
 var resolved = Promise.resolve()
 

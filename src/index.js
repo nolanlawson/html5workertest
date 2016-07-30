@@ -1,10 +1,10 @@
 /* global it,describe,after,Worker,before,navigator,XMLHttpRequest,location */
 
-import PromiseWorker from 'promise-worker'
-import functionToString from 'function-to-string'
-import tests from './tests'
-import Promise from 'pouchdb-promise'
-import UAParser from 'ua-parser-js'
+var PromiseWorker = require('promise-worker')
+var functionToString = require('function-to-string')
+var apiTests = require('./apiTests')
+var Promise = require('pouchdb-promise')
+var UAParser = require('ua-parser-js')
 
 function setupServiceWorker () {
   return navigator.serviceWorker.register('service-worker-bundle.js', {
@@ -61,7 +61,7 @@ describe('html5workertest', function () {
         })
       }
 
-      tests.forEach(test => {
+      apiTests.forEach(test => {
         it(test.name, () => {
           return runBasicTest(test)
         })

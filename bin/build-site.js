@@ -15,6 +15,9 @@ var streamToPromise = require('stream-to-promise')
 var BROWSERS = ['Chrome', 'Firefox', 'IE', 'Edge', 'Safari', 'iOS', 'Android']
 var WORKER_TYPES = ['Web Workers', 'Service Workers']
 
+var categories = require('../src/categories')
+var apiTests = require('../src/apiTests')
+
 function getSimpleName (ua) {
   if (ua.device.type === 'mobile') {
     return ua.os.name
@@ -47,8 +50,6 @@ function getContext () {
     var lastGroup = Math.max.apply(null, docs.map(_ => parseInt(_.group)))
     docs = docs.filter(doc => parseInt(doc.group) === lastGroup)
 
-    var allApis = lodash.uniq(lodash.flatten(docs.map(doc => Object.keys(doc.results['Web Workers']))))
-
     var browsersToResults = BROWSERS.map(browser => {
       var browserDocs = docs.filter(doc => getSimpleName(doc.ua) === browser)
       var sorted = browserDocs.sort((a, b) => compareVersion(a.ua.browser.major, b.ua.browser.major))
@@ -61,23 +62,30 @@ function getContext () {
       }
     })
 
-    var workerTypesToApisToBrowsersToSupported = WORKER_TYPES.map(workerType => {
-      var apisToBrowserToSupported = {}
-      allApis.forEach(api => {
-        apisToBrowserToSupported[api] = []
-      })
-
-      browsersToResults.forEach(browser => {
-        var workerResults = browser.results[ workerType ]
-        Object.keys(apisToBrowserToSupported).forEach(api => {
-          apisToBrowserToSupported[api].push({
-            supported: workerResults && workerResults[ api ]
+    var workerTypesToCategoriesToApisToBrowsersToSupported = WORKER_TYPES.map(workerType => {
+      var results = categories.map(category => {
+        var results = apiTests.filter(_ => _.category === category).map(apiTest => {
+          var results = browsersToResults.map(browser => {
+            var workerResults = browser.results[ workerType ]
+            return {
+              name: browser.name,
+              verboseName: getVerboseName(browser),
+              supported: workerResults && workerResults[apiTest.name]
+            }
           })
+          return {
+            name: apiTest.name,
+            results: results
+          }
         })
+        return {
+          name: category,
+          results: results
+        }
       })
       return {
         name: workerType,
-        apis: apisToBrowserToSupported
+        results: results
       }
     })
 
@@ -89,36 +97,42 @@ function getContext () {
       var sortedVersions = browserDocs.sort((a, b) => compareVersion(a.ua.browser.major, b.ua.browser.major))
 
       var workerTypes = WORKER_TYPES.map(workerType => {
-        var apisToVersionToSupported = {}
-        allApis.forEach(api => {
-          apisToVersionToSupported[api] = []
-        })
-
-        sortedVersions.forEach(version => {
-          var workerResults = version.results[ workerType ]
-          Object.keys(apisToVersionToSupported).forEach(api => {
-            apisToVersionToSupported[ api ].push({
-              supported: workerResults && workerResults[ api ]
+        var results = categories.map(category => {
+          var results = apiTests.filter(_ => _.category === category).map(apiTest => {
+            var results = sortedVersions.map(version => {
+              var workerResults = version.results[ workerType ]
+              return {
+                name: getVerboseVersion(version.ua),
+                supported: workerResults && workerResults[apiTest.name]
+              }
             })
+            return {
+              name: apiTest.name,
+              results: results
+            }
           })
+          return {
+            name: category,
+            results: results,
+            tableWidth: sortedVersions.length + 1
+          }
         })
         return {
           name: workerType,
-          versions: sortedVersions,
-          apis: apisToVersionToSupported
+          results: results
         }
       })
       return {
         name: browser,
         verboseName: getVerboseName(browser),
-        workerTypes: workerTypes,
+        results: workerTypes,
         versions: sortedVersions.map(doc => getVerboseVersion(doc.ua))
       }
     })
 
     var templateContext = {
       browsers: browsersToResults,
-      workerTypes: workerTypesToApisToBrowsersToSupported,
+      workerTypes: workerTypesToCategoriesToApisToBrowsersToSupported,
       detailedBrowsers: browsersToWorkerTypesToApisToVersionsToSupported
     }
     return templateContext
