@@ -1,6 +1,7 @@
 var categories = [
   'Network',
   'Storage',
+  'Binary',
   'Timers',
   'Location',
   'Navigator',
