@@ -17,16 +17,15 @@
 
 <a href="test.html" class="btn btn-info test-your-browser-btn" role="button">Test your browser!</a>
 <h1>HTML5 Worker Test</h1>
-<p>Which APIs are supported in Web Workers and Service Workers?</p>
 <div class="hero">
   <img class="big-hero" src="hero.png" alt="HTML5WorkerTest.com logo"/>
   <div class="quote">
     <p>
-      &#x26A0;&#xfe0f; &nbsp; Not all browser APIs are supported in
+      Which APIs are supported in
       <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">Web Workers</a>
       and
-      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a>.
-      This handy chart shows the supported APIs for each browser, based on <a href="https://github.com/nolanlawson/html5workertest">automated testing</a>.
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a>?
+      This chart shows the breakdown for each browser, based on <a href="https://github.com/nolanlawson/html5workertest">automated testing</a>.
     </p>
   </div>
   <img class="little-hero" src="hero.png" alt="HTML5WorkerTest.com logo"/>
@@ -37,7 +36,7 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th></th>
+      <th class="first-cell"></th>
       {{#each ../browsers}}
       <th class="browser">
         <img src="img/browser-{{name}}.png" alt="{{verboseName}} logo"/>
@@ -85,7 +84,7 @@
             <table class="table table-striped">
               <thead>
               <tr>
-                <th></th>
+                <th class="first-cell"></th>
                 {{#each ../versions}}
                   <th class="browser">
                     <img src="img/browser-{{../../name}}.png" alt="{{../../name}} logo"/>

@@ -174,7 +174,7 @@ function buildSite () {
       return build()
     }
 
-    watchGlob(['src/*', 'www/index.hbs'], lodash.debounce(buildAndLogErrors, 300))
+    watchGlob(['src/*', 'www/*.hbs', 'www/*.css', 'www/*.html'], lodash.debounce(buildAndLogErrors, 300))
     buildAndLogErrors()
   })
 }
