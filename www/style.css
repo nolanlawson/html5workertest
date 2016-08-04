@@ -70,6 +70,8 @@ h3 {
 }
 th.browser {
   text-align: center;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 th.api-name {
   font-weight: normal;
@@ -134,7 +136,15 @@ th.category {
   color: rgba(76, 38, 227, 0.7);
 }
 
+.browser-name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .browser-version {
+  display: inline-block;
   color: #666;
   font-size: 12px;
 }

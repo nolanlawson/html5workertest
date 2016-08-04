@@ -40,9 +40,7 @@
       {{#each ../browsers}}
       <th class="browser">
         <img src="img/browser-{{name}}.png" alt="{{verboseName}} logo"/>
-        <br/>
-        {{verboseName}}
-        <br/>
+        <span class="browser-name">{{verboseName}}</span>
         <span class="browser-version">{{version}}</span> <a class="browser-more" href="#{{name}}">more</a>
       </th>
       {{/each}}
@@ -88,9 +86,7 @@
                 {{#each ../versions}}
                   <th class="browser">
                     <img src="img/browser-{{../../name}}.png" alt="{{../../name}} logo"/>
-                    <br/>
-                    {{../../verboseName}}
-                    <br/>
+                    <span class="browser-name">{{../../verboseName}}</span>
                     <span class="browser-version">{{this}}</span>
                   </th>
                 {{/each}}
