@@ -75,6 +75,7 @@ function getContext () {
           })
           return {
             name: apiTest.name,
+            specification: apiTest.specification,
             results: results
           }
         }).sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
@@ -108,6 +109,7 @@ function getContext () {
             })
             return {
               name: apiTest.name,
+              specification: apiTest.specification,
               results: results
             }
           }).sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)

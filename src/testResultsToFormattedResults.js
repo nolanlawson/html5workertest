@@ -12,6 +12,7 @@ function testResultsToFormattedResults (testResults) {
       categoriesToApiTests[ apiTest.category ] = categoriesToApiTests[ apiTest.category ] || []
       categoriesToApiTests[ apiTest.category ].push({
         name: apiTest.name,
+        specification: apiTest.specification,
         supported: testResults[workerType] && testResults[workerType][apiTest.name]
       })
     })

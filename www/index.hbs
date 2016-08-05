@@ -53,7 +53,13 @@
       </tr>
       {{#each results}}
         <tr>
-          <th class="api-name">{{name}}</th>
+          <th class="api-name">
+              {{#if specification}}
+                  <a href="{{specification}}" target="_blank" rel="nofollow">{{name}}</a>
+              {{else}}
+                  {{name}}
+              {{/if}}
+          </th>
           {{#each results}}
             <td class="{{#if supported}}supported{{else}}unsupported{{/if}}">
               {{#if supported}}&#10003;{{else}}&#10007;{{/if}}
@@ -99,7 +105,13 @@
                 </tr>
                 {{#each results}}
                   <tr>
-                    <th class="api-name">{{name}}</th>
+                    <th class="api-name">
+                      {{#if specification}}
+                          <a href="{{specification}}" target="_blank" rel="nofollow">{{name}}</a>
+                      {{else}}
+                          {{name}}
+                      {{/if}}
+                    </th>
                     {{#each results}}
                       <td class="{{#if supported}}supported{{else}}unsupported{{/if}}">
                         {{#if supported}}&#10003;{{else}}&#10007;{{/if}}
