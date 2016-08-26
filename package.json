@@ -43,7 +43,7 @@
     "http-server": "^0.9.0",
     "lodash": "^4.13.1",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.5.3",
+    "mocha": "2.5.3",
     "ncp": "^2.0.0",
     "pouchdb-http": "^5.4.5",
     "rimraf": "^2.5.3",
