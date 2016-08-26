@@ -1,4 +1,6 @@
-/* global it,describe,after,Worker,before,navigator,XMLHttpRequest,location */
+/* global mocha,it,describe,after,Worker,before,navigator,XMLHttpRequest,location */
+
+mocha.globals('testResults')
 
 var PromiseWorker = require('promise-worker')
 var functionToString = require('function-to-string')
