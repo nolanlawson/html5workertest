@@ -12,7 +12,7 @@ $('.loading').style.display = 'block'
 
 runner.on('end', function () {
   $('.loading').style.display = 'none'
-  var formattedResults = testResultsToFormattedResults(window.testResults)
+  var formattedResults = testResultsToFormattedResults(window.mocha.__testResults)
   var html = template({formattedResults: formattedResults, uaString: navigator.userAgent})
   var el = document.createElement('div')
   el.innerHTML = html
