@@ -1,4 +1,4 @@
-/* global Worker,location */
+/* global Worker,location,crypto */
 
 var tests = [
   //
@@ -291,6 +291,12 @@ var tests = [
     category: 'Timers',
     func: () => typeof requestIdleCallback === 'function',
     specification: 'https://www.w3.org/TR/requestidlecallback/'
+  },
+  {
+    name: 'WebCrypto',
+    category: 'Miscellaneous',
+    func: () => typeof crypto !== 'undefined' && typeof crypto.subtle !== 'undefined',
+    specification: 'https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#crypto-interface'
   }
 ]
 
