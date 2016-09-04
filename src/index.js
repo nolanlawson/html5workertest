@@ -107,7 +107,8 @@ describe('html5workertest', function () {
   }
 
   after(() => {
-    window.testResults = results
+    // attach to window.mocha to avoid mocha detecting a global leak (hacky, I know)
+    window.mocha.__testResults = results
     if (!/test.html$/.test(location.pathname)) {
       // only show this when running in non-user-facing mode, i.e. zuul
       displayResults()
