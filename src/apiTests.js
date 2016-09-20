@@ -287,6 +287,12 @@ var tests = [
     specification: 'https://html.spec.whatwg.org/multipage/comms.html#network'
   },
   {
+    name: 'EventSource (Server-Sent Events)',
+    category: 'Network',
+    func: () => typeof EventSource !== 'undefined',
+    specification: 'http://www.w3.org/TR/2009/WD-eventsource-20090423/'
+  },
+  {
     name: 'requestIdleCallback',
     category: 'Timers',
     func: () => typeof requestIdleCallback === 'function',
