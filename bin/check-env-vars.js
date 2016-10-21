@@ -1,7 +1,4 @@
 var envVariables = [
-  'COUCH_URL',
-  'COUCH_USERNAME',
-  'COUCH_PASSWORD',
   'SAUCE_USERNAME',
   'SAUCE_ACCESS_KEY'
 ]
