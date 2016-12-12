@@ -303,6 +303,12 @@ var tests = [
     category: 'Miscellaneous',
     func: () => typeof crypto !== 'undefined' && typeof crypto.subtle !== 'undefined',
     specification: 'https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#crypto-interface'
+  },
+  {
+    name: 'Intl',
+    category: 'Miscellaneous',
+    func: () => typeof Intl !== 'undefined',
+    specification: 'http://tc39.github.io/ecma402/#intl-object'
   }
 ]
 
