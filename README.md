@@ -27,3 +27,4 @@ To develop the site:
 To publish the site to gh-pages:
 
     npm run publish-site
+
