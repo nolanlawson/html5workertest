@@ -173,6 +173,18 @@ var tests = [
     specification: 'https://www.w3.org/TR/FileAPI/#FileReaderSync'
   },
   {
+    name: 'SharedArrayBuffer',
+    category: 'Binary',
+    func: () => typeof SharedArrayBuffer === 'function',
+    specification: 'https://tc39.github.io/ecmascript_sharedmem/shmem.html'
+  },
+  {
+    name: 'Atomics',
+    category: 'Binary',
+    func: () => typeof Atomics === 'object',
+    specification: 'https://tc39.github.io/ecmascript_sharedmem/shmem.html'
+  },
+  {
     name: 'createImageBitmap',
     category: 'Binary',
     func: () => typeof createImageBitmap === 'function',
