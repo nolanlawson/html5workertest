@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '6'
 sudo: false
-script: npm test
+script: travis_retry npm test
 branches:
   only:
   - master
