@@ -287,7 +287,7 @@ var tests = [
     specification: 'https://html.spec.whatwg.org/multipage/comms.html#network'
   },
   {
-    name: 'EventSource (Server-Sent Events)',
+    name: 'EventSource (SSE)',
     category: 'Network',
     func: () => typeof EventSource !== 'undefined',
     specification: 'http://www.w3.org/TR/2009/WD-eventsource-20090423/'
