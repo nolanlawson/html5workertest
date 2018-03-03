@@ -7,7 +7,7 @@ browserify:
   - transform: envify
 browsers:
   - name: chrome
-    version: 60..latest
+    version: [59, 60, 61, 63..latest]
   - name: firefox
     version: 55..latest
   - name: safari
