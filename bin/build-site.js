@@ -43,7 +43,7 @@ function getVerboseName (simpleName) {
 }
 
 function getContext () {
-  return db.replicate.from('http://nolan.cloudant.com/html5workertest').then(() => {
+  return db.replicate.from('https://nolan.cloudant.com/html5workertest').then(() => {
     return db.allDocs({ include_docs: true })
   }).then(res => {
     var docs = res.rows.map(_ => _.doc)
