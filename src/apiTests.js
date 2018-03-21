@@ -321,6 +321,12 @@ var tests = [
     category: 'Miscellaneous',
     func: () => typeof Intl !== 'undefined',
     specification: 'http://tc39.github.io/ecma402/#intl-object'
+  },
+  {
+    name: 'OffscreenCanvas',
+    category: 'Miscellaneous',
+    func: () => typeof OffscreenCanvas !== 'undefined',
+    specification: 'https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface'
   }
 ]
 
