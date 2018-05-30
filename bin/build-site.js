@@ -43,10 +43,10 @@ function getVerboseName (simpleName) {
 }
 
 function getContext () {
-  return db.replicate.from('https://nolan.cloudant.com/html5workertest').then(() => {
+  return db.replicate.from('https://couchdb.nolanlawson.com/html5workertest').then(() => {
     return db.allDocs({ include_docs: true })
   }).then(res => {
-    var docs = res.rows.map(_ => _.doc)
+    var docs = res.rows.map(_ => _.doc).filter(_ => !/^_design\//.test(_._id))
     var lastGroup = Math.max.apply(null, docs.map(_ => parseInt(_.group)))
     docs = docs.filter(doc => parseInt(doc.group) === lastGroup)
 
