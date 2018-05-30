@@ -3,7 +3,7 @@ concurrency: 2
 tunnel:
   type: ngrok
 browserify:
-  - transform: babelify
+  - transform: bubleify
   - transform: envify
 browsers:
   - name: chrome
