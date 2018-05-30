@@ -156,7 +156,7 @@ function buildSite () {
         }).then(() => {
           return ncp('./worker-bundle.js', './dist/worker-bundle.js')
         }).then(() => {
-          var b = browserify('./src/testMyBrowser').transform('hbsify').transform('babelify')
+          var b = browserify('./src/testMyBrowser').transform('hbsify').transform('bubleify')
           return streamToPromise(b.bundle()).then(b => {
             return writeFile('www/test-bundle.js', b)
           })

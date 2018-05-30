@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-local": "concurrently --kill-others \"node bin/watch.js\" \"zuul --no-coverage --local 9000 src/index.js\"",
-    "build-worker": "browserify -t babelify src/worker.js > worker-bundle.js && browserify -t babelify src/serviceWorker.js > service-worker-bundle.js",
+    "build-worker": "browserify -t bubleify src/worker.js > worker-bundle.js && browserify -t bubleify src/serviceWorker.js > service-worker-bundle.js",
     "check-env-vars": "node bin/check-env-vars.js",
     "standard": "standard",
     "pretest": "run-scripts standard check-env-vars build-worker",
@@ -29,11 +29,8 @@
     "ua-parser-js": "0.7.10"
   },
   "devDependencies": {
-    "babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
-    "babel-preset-es2015": "^6.9.0",
-    "babelify": "^7.3.0",
     "browserify": "^13.0.1",
+    "bubleify": "^1.2.0",
     "concurrently": "^2.2.0",
     "denodeify": "^1.2.1",
     "envify": "^3.4.1",
