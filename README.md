@@ -28,3 +28,8 @@ To publish the site to gh-pages:
 
     npm run publish-site
 
+When running the Zuul tests, results are published to the public CouchDB database. To configure this database, use the environment variables:
+
+    COUCH_URL=https://example.com/html5workertest
+    COUCH_USERNAME=user
+    COUCH_PASSWORD=password
