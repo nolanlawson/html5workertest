@@ -3,7 +3,7 @@ concurrency: 2
 tunnel:
   type: ngrok
 browserify:
-  - transform: babelify
+  - transform: bubleify
   - transform: envify
 browsers:
   - name: chrome
@@ -14,7 +14,7 @@ browsers:
     version: [9, 10, latest]
   - name: ie
     version: [10, 11]
-  - name: microsoftedge
+  - name: MicrosoftEdge
     version: 14..latest
   - name: iphone
     version: [9.0, 10.0, latest]

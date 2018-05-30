@@ -1,14 +1,14 @@
 var browserify = require('browserify')
 var watchify = require('watchify')
 var fs = require('fs')
-var babelify = require('babelify')
+var bubleify = require('bubleify')
 
 var webWorkerBundler = browserify('./src/worker', {
   cache: {},
   packageCache: {},
   plugin: [watchify],
   debug: true
-}).transform(babelify)
+}).transform(bubleify)
 
 webWorkerBundler.on('update', bundleWebWorker)
 bundleWebWorker()
@@ -22,7 +22,7 @@ var serviceWorkerBundler = browserify('./src/serviceWorker', {
   packageCache: {},
   plugin: [watchify],
   debug: true
-}).transform(babelify)
+}).transform(bubleify)
 
 serviceWorkerBundler.on('update', bundleServiceWorker)
 bundleServiceWorker()

@@ -43,10 +43,10 @@ function getVerboseName (simpleName) {
 }
 
 function getContext () {
-  return db.replicate.from('https://nolan.cloudant.com/html5workertest').then(() => {
+  return db.replicate.from('https://couchdb.nolanlawson.com/html5workertest').then(() => {
     return db.allDocs({ include_docs: true })
   }).then(res => {
-    var docs = res.rows.map(_ => _.doc)
+    var docs = res.rows.map(_ => _.doc).filter(_ => !/^_design\//.test(_._id))
     var lastGroup = Math.max.apply(null, docs.map(_ => parseInt(_.group)))
     docs = docs.filter(doc => parseInt(doc.group) === lastGroup)
 
@@ -156,7 +156,7 @@ function buildSite () {
         }).then(() => {
           return ncp('./worker-bundle.js', './dist/worker-bundle.js')
         }).then(() => {
-          var b = browserify('./src/testMyBrowser').transform('hbsify').transform('babelify')
+          var b = browserify('./src/testMyBrowser').transform('hbsify').transform('bubleify')
           return streamToPromise(b.bundle()).then(b => {
             return writeFile('www/test-bundle.js', b)
           })
