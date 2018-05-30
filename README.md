@@ -12,7 +12,7 @@ First:
 
     npm install
 
-Then to run the Zuul tests against all browsers in `.zuul.yml` (requires SaucLabs credentials and a local CouchDB/PouchDB Server):
+Then to run the Zuul tests against all browsers in `.zuul.yml` (requires SauceLabs credentials and a local CouchDB/PouchDB Server):
 
     npm test
 
