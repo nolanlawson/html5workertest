@@ -215,6 +215,18 @@ th.category {
   color: rgba(0, 0, 0, 0.4)
 }
 
+.disclaimer {
+  color: #999;
+  padding-top: 30px;
+}
+
+.disclaimer p {
+  font-size: 14px;
+  text-align: left;
+  max-width: 50%;
+  margin: 0;
+}
+
 @media (max-width: 767px) {
   .hero .quote {
     display: block;
@@ -296,5 +308,11 @@ th.category {
   .test-your-browser-btn {
     left: 10px;
     top: 10px;
+  }
+  .disclaimer {
+    padding-top: 10px;
+  }
+  .disclaimer p {
+    max-width: 100%;
   }
 }
