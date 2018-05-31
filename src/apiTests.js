@@ -170,7 +170,7 @@ var tests = [
     name: 'FileReaderSync',
     category: 'Binary',
     func: () => typeof FileReaderSync === 'function',
-    specification: 'https://www.w3.org/TR/FileAPI/#FileReaderSync'
+    specification: 'https://w3c.github.io/FileAPI/#dfn-FileReaderSync'
   },
   {
     name: 'SharedArrayBuffer',
@@ -200,7 +200,7 @@ var tests = [
     name: 'console',
     category: 'Miscellaneous',
     func: () => typeof console !== 'undefined',
-    specification: 'https://github.com/DeveloperToolsWG/console-object/blob/master/api.md'
+    specification: 'https://console.spec.whatwg.org/'
   },
   {
     name: 'fetch',
@@ -218,7 +218,7 @@ var tests = [
     name: 'Promise',
     category: 'Timers',
     func: () => typeof Promise === 'function',
-    specification: 'http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects'
+    specification: 'https://tc39.github.io/ecma262/#sec-promise-objects'
   },
   {
     name: 'BroadcastChannel',
@@ -230,7 +230,7 @@ var tests = [
     name: 'Cache',
     category: 'Storage',
     func: () => typeof caches === 'object',
-    specification: 'https://www.w3.org/TR/service-workers/#cache'
+    specification: 'https://w3c.github.io/ServiceWorker/#cache-objects'
   },
   {
     name: 'Channel Messaging',
@@ -284,7 +284,7 @@ var tests = [
     name: 'TextEncoder/TextDecoder',
     category: 'Miscellaneous',
     func: () => typeof TextEncoder !== 'undefined' && typeof TextDecoder !== 'undefined',
-    specification: 'https://www.w3.org/TR/encoding/'
+    specification: 'https://encoding.spec.whatwg.org/'
   },
   {
     name: 'URL',
@@ -308,7 +308,7 @@ var tests = [
     name: 'requestIdleCallback',
     category: 'Timers',
     func: () => typeof requestIdleCallback === 'function',
-    specification: 'https://www.w3.org/TR/requestidlecallback/'
+    specification: 'https://w3c.github.io/requestidlecallback/'
   },
   {
     name: 'WebCrypto',
