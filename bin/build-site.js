@@ -8,7 +8,7 @@ var writeFile = denodeify(fs.writeFile)
 var handlebars = require('handlebars')
 var compareVersion = require('compare-version')
 var ncp = denodeify(require('ncp'))
-var watchGlob = require('watch-glob')
+var chokidar = require('chokidar')
 var browserify = require('browserify')
 var streamToPromise = require('stream-to-promise')
 
@@ -174,7 +174,7 @@ function buildSite () {
       return build()
     }
 
-    watchGlob(['src/*', 'www/*.hbs', 'www/*.css', 'www/*.html'], lodash.debounce(buildAndLogErrors, 300))
+    chokidar.watch(['src/*', 'www/*.hbs', 'www/*.css', 'www/*.html']).on('all', lodash.debounce(buildAndLogErrors, 300))
     buildAndLogErrors()
   })
 }
