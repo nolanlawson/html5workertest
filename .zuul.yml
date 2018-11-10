@@ -1,5 +1,5 @@
 ui: mocha-bdd
-concurrency: 2
+concurrency: 1
 tunnel:
   type: ngrok
 browserify:
@@ -7,9 +7,9 @@ browserify:
   - transform: envify
 browsers:
   - name: chrome
-    version: 62..latest
+    version: 68..latest
   - name: firefox
-    version: 56..latest
+    version: 59..latest
   - name: safari
     version: [9, 10, latest]
   - name: ie
