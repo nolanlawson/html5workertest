@@ -7,9 +7,9 @@ browserify:
   - transform: envify
 browsers:
   - name: chrome
-    version: 62..latest
+    version: 68..latest
   - name: firefox
-    version: 56..latest
+    version: 59..latest
   - name: safari
     version: [9, 10, latest]
   - name: ie
@@ -19,4 +19,4 @@ browsers:
   - name: iphone
     version: [9.0, 10.0, latest]
   - name: android
-    version: [4.4, 5.0, 6.0]
+    version: [4.4, 5.0, 6.0, latest]
