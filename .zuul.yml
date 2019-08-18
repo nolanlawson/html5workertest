@@ -7,16 +7,16 @@ browserify:
   - transform: envify
 browsers:
   - name: chrome
-    version: 68..latest
+    version: [75, latest]
   - name: firefox
-    version: 59..latest
+    version: [60, latest]
   - name: safari
-    version: [9, 10, latest]
+    version: [10, latest]
   - name: ie
-    version: [10, 11]
+    version: [11]
   - name: MicrosoftEdge
-    version: 14..latest
+    version: [17, latest]
   - name: iphone
-    version: [9.0, 10.0, latest]
+    version: [11, latest]
   - name: android
-    version: [4.4, 5.0, 6.0]
+    version: [5, 6]
