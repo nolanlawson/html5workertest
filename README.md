@@ -33,3 +33,4 @@ When running the Zuul tests, results are published to the public CouchDB databas
     COUCH_URL=https://example.com/html5workertest
     COUCH_USERNAME=user
     COUCH_PASSWORD=password
+
