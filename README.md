@@ -16,6 +16,12 @@ Then to run the Zuul tests against all browsers in `.zuul.yml` (requires SauceLa
 
     npm test
 
+For the following commands, you must run:
+
+    export COUCH_URL=http://localhost:5984/html5workertest
+
+...which points to some CouchDB database where the data should be stored and read from.
+
 To build the site:
 
     npm run build-site
@@ -28,9 +34,8 @@ To publish the site to gh-pages:
 
     npm run publish-site
 
-When running the Zuul tests, results are published to the public CouchDB database. To configure this database, use the environment variables:
+When running the Zuul tests, results are published to the CouchDB database, so you need to log in. To configure the credentials, use the environment variables:
 
-    COUCH_URL=https://example.com/html5workertest
     COUCH_USERNAME=user
     COUCH_PASSWORD=password
 

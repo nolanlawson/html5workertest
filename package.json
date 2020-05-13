@@ -60,5 +60,10 @@
   "bugs": {
     "url": "https://github.com/nolanlawson/html5workertest/issues"
   },
-  "homepage": "https://github.com/nolanlawson/html5workertest#readme"
+  "homepage": "https://github.com/nolanlawson/html5workertest#readme",
+  "standard": {
+    "ignore": [
+      "docs"
+    ]
+  }
 }

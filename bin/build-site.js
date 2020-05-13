@@ -1,3 +1,4 @@
+var process = require('process')
 var PouchDB = require('pouchdb-node')
 var db = new PouchDB('_pouch')
 var lodash = require('lodash')
@@ -43,7 +44,7 @@ function getVerboseName (simpleName) {
 }
 
 function getContext () {
-  return db.replicate.from('https://couchdb.nolanlawson.com/html5workertest').then(() => {
+  return db.replicate.from(process.env.COUCH_URL).then(() => {
     return db.allDocs({ include_docs: true })
   }).then(res => {
     var docs = res.rows.map(_ => _.doc).filter(_ => !/^_design\//.test(_._id))
@@ -142,6 +143,9 @@ function getContext () {
 }
 
 function buildSite () {
+  if (!process.env.COUCH_URL) {
+    throw new Error('COUCH_URL env var required')
+  }
   return getContext().then(templateContext => {
     function build () {
       return readFile('www/index.hbs', 'utf-8').then(templateSource => {
