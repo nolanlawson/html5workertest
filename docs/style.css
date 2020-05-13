@@ -1,0 +1,318 @@
+a {
+  color: #4c26e3;
+}
+
+a:focus, a:hover {
+  color: #3E20B8;
+}
+
+.test-your-browser-btn {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.supported {
+  font-size: 18px;
+  color: #4c26e3;
+  text-align: center;
+}
+
+.unsupported {
+  font-size: 18px;
+  color: #e44d20;
+  text-align: center;
+}
+
+body {
+  margin: 0 auto;
+}
+
+.container {
+  background: #ededed;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.hero {
+  text-align: center;
+  margin: 40px 0;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+h3 {
+  background: sandybrown;
+  color: #fafafa;
+  padding: 5px 20px;
+  text-align: left;
+}
+
+.results-table {
+  margin: 0 20px;
+  overflow-x: scroll;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.first-cell {
+  width: 20%;
+}
+th.browser {
+  text-align: center;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+th.api-name {
+  font-weight: normal;
+}
+th.category {
+  background: #999;
+  color: #fafafa;
+  font-size: 16px;
+}
+
+.hero {
+  position: relative;
+  text-align: center;
+}
+
+.hero .quote {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: calc(50% + 108px);
+  max-width: 300px;
+
+  padding: 15px 15px 15px 20px;
+  margin: 0 10px 0 15px;
+  background: #fefefe;
+  border-radius: 25px;
+}
+
+.hero .quote p {
+  font-size: 14px;
+  text-align: left;
+  margin-top: 0;
+}
+
+/* "speech bubble" effect */
+.quote:after {
+  content: "";
+  position: absolute;
+  top: calc(100% - 20px);
+  left: 0px;
+  border-top: 40px solid #fefefe;
+  border-top-color: #fefefe;
+  border-left: 0px solid transparent;
+  border-right: 55px solid transparent;
+}
+
+.big-hero {
+  margin-top: 20px;
+  max-width: 162px;
+}
+.little-hero {
+  display: none;
+}
+
+.footer {
+  text-align: center;
+  padding: 0 0 20px;
+  margin-top: 30px;
+  color: #aaa;
+}
+.footer a {
+  color: rgba(76, 38, 227, 0.7);
+}
+
+.browser-name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.browser-version {
+  display: inline-block;
+  color: #666;
+  font-size: 12px;
+}
+
+.browser-more {
+  font-size: 12px;
+  color: rgba(76, 38, 227, 0.7);
+}
+
+.table {
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+.my-modal-dialog {
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 2;
+  transition: opacity 200ms ease-in;
+}
+.my-modal-dialog-inner {
+  position: fixed;
+  left: 10vw;
+  top: 10vh;
+  background: #ededed;
+  width: 80vw;
+  height: 80vh;
+  overflow-y: scroll;
+}
+.my-modal-container {
+  padding: 20px;
+}
+.my-modal-dialog h2 {
+  margin: 0;
+  color: #fafafa;
+  display: inline-block;
+}
+.my-modal-dialog button {
+  display: inline-block;
+  float: right;
+}
+.my-modal-dialog.targeted {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.my-modal-header {
+  background: chocolate;
+  padding: 20px;
+  text-align: center;
+}
+.close-my-modal {
+  font-weight: bold;
+  font-size: 20px;
+  min-width: 50px;
+  padding-bottom: 10px;
+}
+
+.muted {
+  color: rgba(0, 0, 0, 0.4)
+}
+
+.disclaimer {
+  color: #999;
+  padding-top: 30px;
+}
+
+.disclaimer p {
+  font-size: 14px;
+  text-align: left;
+  max-width: 50%;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .hero .quote {
+    display: block;
+    position: inherit;
+    left: 0;
+    max-width: 100%;
+  }
+  .hero .quote p {
+    font-size: 14px;
+  }
+  .big-hero {
+    display: none;
+  }
+  .little-hero {
+    display: inherit;
+    max-width: 108px;
+    margin: 20px auto;
+  }
+  .quote:after {
+    margin-left: calc(50% + 30px);
+  }
+  th.api-name {
+    font-size: 12px;
+  }
+  th img {
+    max-width: 24px;
+  }
+  th.browser {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  th.api-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  th.category {
+    font-size: 12px;
+  }
+  td.supported, td.unsupported {
+    font-size: 11px;
+  }
+  .first-cell {
+    width: 30%;
+  }
+  .container {
+    padding-top: 10px;
+    margin-top: 0;
+  }
+  h1 {
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+  }
+
+  .my-modal-dialog h2 {
+    font-size: 22px;
+  }
+  .my-modal-dialog-inner {
+    position: fixed;
+    left: 1vw;
+    top: 1vh;
+    background: #ededed;
+    width: 99vw;
+    height: 99vh;
+  }
+  .close-my-modal {
+    min-width: 50px;
+    max-height: 50px;
+    font-size: 16px;
+    padding-bottom: 7px;
+  }
+  .my-modal-header {
+    min-height: 50px;
+  }
+  .test-your-browser-btn {
+    left: 10px;
+    top: 10px;
+  }
+  .disclaimer {
+    padding-top: 10px;
+  }
+  .disclaimer p {
+    max-width: 100%;
+  }
+}

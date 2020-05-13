@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>HTML5 Worker Test</title>
+  <meta name="description" content="What APIs are supported in Web Workers and Service Workers?"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+<div class="container">
+<a href="https://github.com/nolanlawson/html5workertest"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+
+<a href="test.html" class="btn btn-info test-your-browser-btn" role="button">Test your browser!</a>
+<h1>HTML5 Worker Test</h1>
+<div class="hero">
+  <img class="big-hero" src="hero.png" alt="HTML5WorkerTest.com logo"/>
+  <div class="quote">
+    <p>
+      Which APIs are supported in
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">Web Workers</a>
+      and
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Workers</a>?
+      This chart shows the breakdown for each browser, based on <a href="https://github.com/nolanlawson/html5workertest">automated testing</a>.
+    </p>
+  </div>
+  <img class="little-hero" src="hero.png" alt="HTML5WorkerTest.com logo"/>
+  <div class="disclaimer"><p><em>Note that the goal is not for browsers to reach 100% on all tests. Some APIs are intentionally not exposed to workers. This site is for informational purposes only.</em></p></div>
+</div>
+{{#each workerTypes}}
+<h3>{{name}}</h3>
+<div class="results-table">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="first-cell"></th>
+      {{#each ../browsers}}
+      <th class="browser">
+        <img src="img/browser-{{name}}.png" alt="{{verboseName}} logo"/>
+        <span class="browser-name">{{verboseName}}</span>
+        <span class="browser-version">{{version}}</span> <a class="browser-more" href="#{{name}}">more</a>
+      </th>
+      {{/each}}
+    </tr>
+    </thead>
+    <tbody>
+    {{#each results}}
+      <tr>
+        <th class="category" colspan="8">{{name}}</th>
+      </tr>
+      {{#each results}}
+        <tr>
+          <th class="api-name">
+              {{#if specification}}
+                  <a href="{{specification}}" target="_blank" rel="nofollow">{{name}}</a>
+              {{else}}
+                  {{name}}
+              {{/if}}
+          </th>
+          {{#each results}}
+            <td class="{{#if supported}}supported{{else}}unsupported{{/if}}">
+              {{#if supported}}&#10003;{{else}}&#10007;{{/if}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/each}}
+
+</div>
+{{#each detailedBrowsers}}
+  <div class="my-modal-dialog" id="{{name}}">
+    <div class="my-modal-dialog-inner">
+      <div class="my-modal-header">
+        <h2>Breakdown for {{verboseName}}</h2>
+        <button type="button" class="btn btn-default close-my-modal" aria-label="Close">×</button>
+      </div>
+      <div class="my-modal-container">
+        {{#each results}}
+          <h3>{{name}}</h3>
+          <div class="results-table">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th class="first-cell"></th>
+                {{#each ../versions}}
+                  <th class="browser">
+                    <img src="img/browser-{{../../name}}.png" alt="{{../../name}} logo"/>
+                    <span class="browser-name">{{../../verboseName}}</span>
+                    <span class="browser-version">{{this}}</span>
+                  </th>
+                {{/each}}
+              </tr>
+              </thead>
+              <tbody>
+              {{#each results}}
+                <tr>
+                  <th class="category" colspan="{{tableWidth}}">{{name}}</th>
+                </tr>
+                {{#each results}}
+                  <tr>
+                    <th class="api-name">
+                      {{#if specification}}
+                          <a href="{{specification}}" target="_blank" rel="nofollow">{{name}}</a>
+                      {{else}}
+                          {{name}}
+                      {{/if}}
+                    </th>
+                    {{#each results}}
+                      <td class="{{#if supported}}supported{{else}}unsupported{{/if}}">
+                        {{#if supported}}&#10003;{{else}}&#10007;{{/if}}
+                      </td>
+                    {{/each}}
+                  </tr>
+                {{/each}}
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+{{/each}}
+<div class="footer">
+  Made by <a href="https://nolanlawson.com">Nolan Lawson</a>. Sprite artwork is &copy; Capcom. Thanks to <a href="https://github.com/alrra/browser-logos/">browser-logos</a> for the browser logos.
+</div>
+<script src="script.js"></script>
+</body>
+</html>
