@@ -2,18 +2,10 @@
 
 npm run build-site
 
-branchname=build_$RANDOM
+rm -fr docs
+cp -r dist docs
 
-git checkout -b ${branchname}
+git add docs
+git commit -m 'chore: build [skip-ci]'
 
-mv dist/* .
-
-git add -A
-git add -f *-bundle.js
-git commit -m 'build'
-
-git push --force origin ${branchname}:gh-pages
-
-git checkout -
-
-git branch -D $branchname
+git push origin master
