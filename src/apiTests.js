@@ -327,6 +327,12 @@ var tests = [
     category: 'Miscellaneous',
     func: () => typeof OffscreenCanvas !== 'undefined',
     specification: 'https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface'
+  },
+  {
+    name: 'WebTransport',
+    category: 'Network',
+    func: () => typeof WebTransport !== 'undefined',
+    specification: 'https://www.w3.org/TR/webtransport/'
   }
 ]
 
